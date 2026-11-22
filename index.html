@@ -125,7 +125,1547 @@ footer{max-width:720px;margin:64px auto 0;padding-top:16px;border-top:1px solid 
   section.summary-card{padding:4px 16px 8px}
 }
 </style>
-</head>
+<style data-polish>/* ==========================================================================
+   Anti-Slop Editorial Design System — Nate Parrott × Peter Yang
+   Palette: Cold Architectural Graphite + International Cobalt + Acid Lime
+   Narrative: Default (uniform wireframe) -> Intentional (editorial voice)
+   ========================================================================== */
+
+:root {
+  /* Override base page tokens: cool architectural paper, zero warm cream or orange */
+  --bg: #f1f3f6;
+  --surface: #ffffff;
+  --ink: #111318;
+  --muted: #464e5e;
+  --line: #cfd6e0;
+  --line-strong: #111318;
+  --accent: #0038ff;
+  --accent-ink: #0029cc;
+  --accent-soft: #e6ecff;
+  --signal: #c8f900;
+  --signal-ink: #111318;
+  --note: #e8edf4;
+  --code: #e3e8f0;
+  --link: #0034d9;
+  --card: #ffffff;
+  --card-line: #111318;
+  --shadow: 0 10px 28px rgba(17, 19, 24, 0.07);
+
+  /* Typography: System grotesque + technical tabular mono (no serif, no external fonts) */
+  --font-display: "PingFang TC", "Hiragino Sans CNS", "Helvetica Neue", Arial, "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+  --font-body: -apple-system, BlinkMacSystemFont, "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", system-ui, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+
+  /* Scroll narrative variables: default to 1 (full intentional state) for no-JS & reduced-motion */
+  --intent: 1;
+  --scroll-progress: 0;
+  --neutral-wire: #5c6473;
+  --sig-color: #0038ff;
+  --sig-color: color-mix(in srgb, var(--accent) calc(var(--intent) * 100%), var(--neutral-wire));
+  --sig-ink: #0029cc;
+  --sig-ink: color-mix(in srgb, var(--accent-ink) calc(var(--intent) * 100%), var(--ink));
+  --bevel: calc(var(--intent) * 16px);
+  --hard-offset: calc(var(--intent) * 6px);
+  --rail-w: 204px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0c0e13;
+    --surface: #141821;
+    --ink: #eef2f8;
+    --muted: #9ba6ba;
+    --line: #283040;
+    --line-strong: #dce4f2;
+    --accent: #6ea0ff;
+    --accent-ink: #92bcff;
+    --accent-soft: #17233b;
+    --signal: #d4ff1f;
+    --signal-ink: #0c0e13;
+    --note: #161c28;
+    --code: #1d2433;
+    --link: #85b0ff;
+    --card: #141821;
+    --card-line: #3c4860;
+    --shadow: 0 14px 36px rgba(0, 0, 0, 0.48);
+    --neutral-wire: #7f8ba1;
+    --sig-color: #6ea0ff;
+    --sig-color: color-mix(in srgb, var(--accent) calc(var(--intent) * 100%), var(--neutral-wire));
+    --sig-ink: #92bcff;
+    --sig-ink: color-mix(in srgb, var(--accent-ink) calc(var(--intent) * 100%), var(--ink));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --intent: 1 !important;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+    animation: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Global selection & scrollbar craft */
+::selection {
+  background: var(--signal);
+  color: var(--signal-ink);
+}
+
+::-moz-selection {
+  background: var(--signal);
+  color: var(--signal-ink);
+}
+
+html {
+  scrollbar-color: var(--sig-color) var(--bg);
+  scrollbar-width: thin;
+}
+
+::-webkit-scrollbar {
+  width: 9px;
+  height: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--line);
+  border: 2px solid var(--bg);
+  border-radius: 0;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--sig-color);
+}
+
+/* Architectural paper background with subtle drafting dot-grid */
+html body {
+  background-color: var(--bg);
+  background-image:
+    radial-gradient(circle at 1px 1px, color-mix(in srgb, var(--line-strong) 9%, transparent) 1px, transparent 0);
+  background-size: 24px 24px;
+  background-position: 0 0;
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: clamp(16.5px, 0.98rem + 0.16vw, 17.75px);
+  line-height: 1.82;
+  letter-spacing: 0.005em;
+  font-feature-settings: "palt" 1, "kern" 1;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: clip;
+}
+
+/* Focus accessibility: crisp architectural ring */
+:focus-visible {
+  outline: 2.5px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :focus-visible {
+    outline-color: var(--signal);
+  }
+}
+
+/* Skip link */
+a.skip {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 14px;
+  background: var(--ink);
+  color: var(--signal);
+  border: 2px solid var(--signal);
+  border-radius: 0;
+  padding: 10px 16px;
+  text-decoration: none;
+}
+
+a.skip:focus {
+  left: 12px;
+  top: 12px;
+}
+
+/* ==========================================================================
+   Reading Progress Bar (fixed top 3px precision rule)
+   ========================================================================== */
+.polish-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  z-index: 160;
+  background: color-mix(in srgb, var(--line) 55%, transparent);
+  pointer-events: none;
+}
+
+.polish-progress-fill {
+  display: block;
+  width: 100%;
+  height: 100%;
+  transform-origin: 0 50%;
+  transform: scaleX(var(--scroll-progress, 0));
+  background: linear-gradient(90deg, var(--sig-color) 0%, var(--accent) 82%, var(--signal) 100%);
+  will-change: transform;
+}
+
+/* ==========================================================================
+   Top Sticky TOC Navigation
+   ========================================================================== */
+nav.toc {
+  position: sticky;
+  top: 0;
+  z-index: 90;
+  background: color-mix(in srgb, var(--bg) 86%, transparent);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--line);
+  transition: border-color 0.35s ease;
+}
+
+html[data-stage="2"] nav.toc,
+html[data-stage="3"] nav.toc {
+  border-bottom-color: color-mix(in srgb, var(--line-strong) 24%, var(--line));
+}
+
+nav.toc ul {
+  max-width: 1360px;
+  padding: 0 20px;
+  min-height: 48px;
+  gap: 6px;
+}
+
+nav.toc a {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 12px;
+  min-height: 32px;
+  border-radius: 2px;
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--muted);
+  border: 1px solid transparent;
+  transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+}
+
+nav.toc a:hover,
+nav.toc a:focus-visible {
+  background: var(--surface);
+  color: var(--ink);
+  border-color: var(--line);
+}
+
+nav.toc a.is-active {
+  background: var(--ink);
+  color: var(--surface);
+  border-color: var(--ink);
+}
+
+@media (prefers-color-scheme: dark) {
+  nav.toc a.is-active {
+    background: var(--signal);
+    color: var(--signal-ink);
+    border-color: var(--signal);
+  }
+}
+
+/* ==========================================================================
+   Mobile Current Chapter Status Strip (non-blocking, appears only after hero)
+   ========================================================================== */
+.polish-now {
+  position: fixed;
+  top: 49px;
+  left: 0;
+  right: 0;
+  z-index: 80;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 16px;
+  background: color-mix(in srgb, var(--surface) 92%, transparent);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--line);
+  font-size: 12.5px;
+  line-height: 1.3;
+  color: var(--ink);
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(-100%);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.polish-now.is-shown {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.polish-now-idx {
+  flex: none;
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  font-size: 11.5px;
+  padding: 2px 6px;
+  background: var(--sig-color);
+  color: #ffffff;
+}
+
+@media (prefers-color-scheme: dark) {
+  .polish-now-idx {
+    color: #0c0e13;
+  }
+}
+
+.polish-now-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+@media (min-width: 1280px) {
+  .polish-now {
+    display: none;
+  }
+}
+
+/* ==========================================================================
+   Desktop Editorial Sidebar Rail (1280px+) — Zero overlap with wide tables
+   ========================================================================== */
+.polish-rail {
+  display: none;
+}
+
+@media (min-width: 1280px) {
+  .polish-rail {
+    position: fixed;
+    top: 74px;
+    left: 24px;
+    width: var(--rail-w);
+    max-height: calc(100vh - 96px);
+    display: flex;
+    flex-direction: column;
+    z-index: 70;
+    padding: 14px 12px 14px 14px;
+    background-color: color-mix(in srgb, var(--surface) 90%, transparent);
+    background-image: linear-gradient(
+      225deg,
+      var(--sig-color) 0 calc(var(--intent) * 11px),
+      transparent calc(var(--intent) * 11px)
+    );
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--line);
+    transition: border-color 0.35s ease, box-shadow 0.35s ease;
+  }
+
+  html[data-stage="2"] .polish-rail,
+  html[data-stage="3"] .polish-rail {
+    border-color: color-mix(in srgb, var(--line-strong) 40%, var(--line));
+    box-shadow: calc(var(--intent) * 4px) calc(var(--intent) * 4px) 0 color-mix(in srgb, var(--sig-color) 18%, transparent);
+  }
+
+  .polish-rail-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 10px;
+    margin-bottom: 8px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  /* Morphing 4-tile geometric glyph: uniform 2x2 grid -> intentional shifted tile */
+  .polish-emblem {
+    display: grid;
+    grid-template-columns: repeat(2, 10px);
+    grid-template-rows: repeat(2, 10px);
+    gap: 3px;
+    width: 23px;
+    height: 23px;
+  }
+
+  .polish-emblem span {
+    display: block;
+    background: var(--line);
+    border: 1px solid color-mix(in srgb, var(--ink) 28%, transparent);
+    transition: background-color 0.3s ease, transform 0.3s ease, border-radius 0.3s ease;
+  }
+
+  .polish-emblem span:nth-child(2) {
+    background: var(--sig-color);
+    border-color: var(--sig-color);
+    transform: translate(calc(var(--intent) * 2px), calc(var(--intent) * -2px)) scale(calc(1 + var(--intent) * 0.14));
+  }
+
+  .polish-emblem span:nth-child(3) {
+    background: color-mix(in srgb, var(--signal) calc(var(--intent) * 100%), var(--line));
+    border-radius: calc(var(--intent) * 50%);
+  }
+
+  .polish-rail-counter {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: var(--sig-ink);
+  }
+
+  .polish-rail-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    overflow-y: auto;
+    scrollbar-width: thin;
+  }
+
+  .polish-rail-list li {
+    margin: 0;
+  }
+
+  .polish-rail-list a {
+    display: grid;
+    grid-template-columns: 24px 1fr;
+    align-items: baseline;
+    gap: 6px;
+    padding: 5px 6px;
+    text-decoration: none;
+    color: var(--muted);
+    font-size: 12.5px;
+    line-height: 1.38;
+    border-left: 2px solid transparent;
+    transition: color 0.18s ease, border-color 0.18s ease, background-color 0.18s ease, padding-left 0.18s ease;
+  }
+
+  .polish-rail-list a:hover,
+  .polish-rail-list a:focus-visible {
+    color: var(--ink);
+    background: color-mix(in srgb, var(--accent-soft) 65%, transparent);
+  }
+
+  .polish-rail-list a.is-active {
+    color: var(--ink);
+    font-weight: 700;
+    border-left-color: var(--sig-color);
+    background: var(--accent-soft);
+    padding-left: 9px;
+  }
+
+  .polish-rail-num {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--muted);
+  }
+
+  .polish-rail-list a.is-active .polish-rail-num {
+    color: var(--sig-ink);
+  }
+
+  /* Shift page column cleanly away from fixed left rail so wide elements never collide */
+  .page {
+    max-width: 1380px;
+    padding: 0 36px 104px 256px;
+  }
+
+  article figure.section-figure {
+    width: min(860px, calc(100vw - 296px));
+  }
+
+  .table-scroll.wide {
+    width: min(980px, calc(100vw - 296px));
+  }
+}
+
+/* ==========================================================================
+   Page Container & Header Hero (Big-Scale Editorial Masthead)
+   ========================================================================== */
+.page {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 0 24px 96px;
+}
+
+header.hero {
+  position: relative;
+  max-width: 820px;
+  margin: 0 auto 24px;
+  padding: 64px 0 28px;
+  text-align: left;
+  border-bottom: 2px solid var(--line-strong);
+}
+
+/* Subtle top architectural registration bar on hero */
+header.hero::before {
+  content: "";
+  display: block;
+  width: calc(48px + var(--intent) * 72px);
+  height: 4px;
+  margin-bottom: 20px;
+  background: var(--sig-color);
+  transition: width 0.4s ease, background-color 0.4s ease;
+}
+
+header.hero .eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 18px;
+  padding: 4px 10px;
+  font-family: var(--font-display);
+  font-size: 12.5px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  color: var(--ink);
+  background: color-mix(in srgb, var(--signal) calc(var(--intent) * 100%), var(--surface));
+  border: 1.5px solid var(--line-strong);
+  transition: background-color 0.4s ease;
+}
+
+@media (prefers-color-scheme: dark) {
+  header.hero .eyebrow {
+    color: color-mix(in srgb, var(--signal-ink) calc(var(--intent) * 100%), var(--ink));
+  }
+}
+
+header.hero h1 {
+  margin: 0 0 22px;
+  max-width: 100%;
+  font-family: var(--font-display);
+  font-size: clamp(1.95rem, 1.25rem + 2.65vw, 3.45rem);
+  font-weight: 900;
+  line-height: 1.18;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+  text-wrap: balance;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+
+header.hero p.lede {
+  margin: 0 0 16px;
+  max-width: 68ch;
+  font-size: clamp(1rem, 0.94rem + 0.25vw, 1.16rem);
+  line-height: 1.65;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+header.hero p.byline {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  padding-top: 12px;
+  border-top: 1px dashed var(--line);
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+/* ==========================================================================
+   Main Article Flow & Spatial "Default -> Intentional" Progression
+   ========================================================================== */
+main#main article {
+  max-width: 720px;
+  margin: 0 auto;
+  counter-reset: sec-counter;
+}
+
+article p {
+  margin: 0 0 1.28em;
+}
+
+article a {
+  color: var(--link);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--link) 42%, transparent);
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 3px;
+  transition: color 0.18s ease, text-decoration-color 0.18s ease, background-color 0.18s ease;
+}
+
+article a:hover {
+  color: var(--accent-ink);
+  text-decoration-color: var(--accent);
+}
+
+article code {
+  background: var(--code);
+  border: 1px solid var(--line);
+  padding: 0.08em 0.42em;
+  border-radius: 3px;
+  font-family: var(--font-mono);
+  font-size: 0.87em;
+  color: var(--ink);
+}
+
+article strong {
+  font-weight: 700;
+  color: var(--ink);
+}
+
+/* ==========================================================================
+   Section Headings (h2): Architectural Numerals + Progressive Cut-Corner
+   Replaces the AI-slop left border stripe with intentional Swiss top geometry
+   ========================================================================== */
+main#main article h2[id^="sec-"] {
+  counter-increment: sec-counter;
+  position: relative;
+  margin: 76px 0 22px;
+  padding: 20px 0 0;
+  margin-left: 0;
+  border-left: 0;
+  border-top: 2px solid color-mix(in srgb, var(--sig-color) calc(var(--sec-i, 0.5) * 100%), var(--line-strong));
+  font-family: var(--font-display);
+  font-size: clamp(1.42rem, 1.12rem + 1.05vw, 2.02rem);
+  font-weight: 800;
+  line-height: 1.28;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+  scroll-margin-top: 84px;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: start;
+  gap: 14px;
+}
+
+/* Spatial progression tokens across the 14 chapters */
+#sec-1 { --sec-i: 0.06; }
+#sec-2 { --sec-i: 0.18; }
+#sec-3 { --sec-i: 0.30; }
+#sec-4 { --sec-i: 0.42; }
+#sec-5 { --sec-i: 0.54; }
+#sec-6 { --sec-i: 0.66; }
+#sec-7 { --sec-i: 0.74; }
+#sec-8 { --sec-i: 0.82; }
+#sec-9 { --sec-i: 0.88; }
+#sec-10 { --sec-i: 0.94; }
+#sec-11 { --sec-i: 0.97; }
+#sec-12 { --sec-i: 1; }
+#sec-13 { --sec-i: 0.65; }
+#sec-14 { --sec-i: 0.65; }
+
+/* Sculptural section numeral badge: evolves from uniform wireframe box -> chamfered cobalt/lime block */
+main#main article h2[id^="sec-"]::before {
+  content: counter(sec-counter, decimal-leading-zero);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 48px;
+  height: 40px;
+  padding: 0 10px;
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  line-height: 1;
+  color: color-mix(in srgb, #ffffff calc(var(--sec-i, 1) * var(--intent) * 100%), var(--ink));
+  background: color-mix(in srgb, var(--accent) calc(var(--sec-i, 1) * var(--intent) * 100%), var(--surface));
+  border: 1.5px solid color-mix(in srgb, var(--accent) calc(var(--sec-i, 1) * var(--intent) * 100%), var(--line-strong));
+  clip-path: polygon(
+    0 0,
+    calc(100% - calc(var(--sec-i, 1) * var(--intent) * 11px)) 0,
+    100% calc(var(--sec-i, 1) * var(--intent) * 11px),
+    100% 100%,
+    0 100%
+  );
+  transform: translateY(2px);
+  transition: background-color 0.35s ease, color 0.35s ease, clip-path 0.35s ease;
+}
+
+@media (prefers-color-scheme: dark) {
+  main#main article h2[id^="sec-"]::before {
+    color: color-mix(in srgb, #0c0e13 calc(var(--sec-i, 1) * var(--intent) * 100%), var(--ink));
+  }
+}
+
+/* Intentional asymmetry grows on desktop in later chapters (margin-left avoids transform collision) */
+@media (min-width: 960px) {
+  main#main article h2[id^="sec-"] {
+    margin-left: calc(var(--sec-i, 0) * var(--intent) * -14px);
+  }
+}
+
+/* Climax Chapter (#sec-12): Full Intentional Expression */
+main#main article h2#sec-12 {
+  border-top-width: 3px;
+  border-top-color: var(--line-strong);
+  padding-top: 24px;
+}
+
+main#main article h2#sec-12::before {
+  background: var(--signal);
+  color: var(--signal-ink);
+  border-color: var(--line-strong);
+}
+
+/* Colophon chapters (#sec-13, #sec-14): restrained reference typography */
+main#main article h2#sec-13,
+main#main article h2#sec-14 {
+  margin-top: 68px;
+  font-size: clamp(1.22rem, 1.05rem + 0.55vw, 1.48rem);
+  border-top: 1px solid var(--line);
+  padding-top: 18px;
+}
+
+main#main article h2#sec-13::before,
+main#main article h2#sec-14::before {
+  min-width: 40px;
+  height: 30px;
+  font-size: 0.74rem;
+  background: var(--note);
+  color: var(--muted);
+  border-color: var(--line);
+}
+
+/* Subheadings (h3) */
+main#main article h3 {
+  position: relative;
+  margin: 42px 0 14px;
+  padding-left: 18px;
+  font-family: var(--font-display);
+  font-size: 1.22rem;
+  font-weight: 800;
+  line-height: 1.4;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+}
+
+main#main article h3::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.42em;
+  width: 8px;
+  height: 8px;
+  background: var(--sig-color);
+  transform: rotate(calc(var(--intent) * 45deg));
+}
+
+/* ==========================================================================
+   Timestamp Capsules (Core Interactive Feature — Preserves href & native click)
+   ========================================================================== */
+article a[href*="youtube.com/watch"][href*="&t="] {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.32em;
+  padding: 0.1em 0.52em 0.1em 0.44em;
+  margin: 0 0.08em;
+  vertical-align: 0.05em;
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: 0.77em;
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  color: var(--sig-ink);
+  background: var(--accent-soft);
+  border: 1px solid color-mix(in srgb, var(--sig-color) 42%, var(--line));
+  border-radius: 3px;
+  transition: background-color 0.16s ease, color 0.16s ease, border-color 0.16s ease, transform 0.16s ease, box-shadow 0.16s ease;
+}
+
+/* Crisp pure-CSS play triangle icon */
+article a[href*="youtube.com/watch"][href*="&t="]::before {
+  content: "";
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border-top: 3.5px solid transparent;
+  border-bottom: 3.5px solid transparent;
+  border-left: 5.5px solid currentColor;
+  flex: none;
+}
+
+article a[href*="youtube.com/watch"][href*="&t="]:hover,
+article a[href*="youtube.com/watch"][href*="&t="]:focus-visible {
+  background: var(--accent);
+  color: #ffffff;
+  border-color: var(--accent);
+  transform: translateY(-1px);
+  box-shadow: 0 3px 8px color-mix(in srgb, var(--accent) 28%, transparent);
+}
+
+@media (prefers-color-scheme: dark) {
+  article a[href*="youtube.com/watch"][href*="&t="]:hover,
+  article a[href*="youtube.com/watch"][href*="&t="]:focus-visible {
+    background: var(--signal);
+    color: var(--signal-ink);
+    border-color: var(--signal);
+    box-shadow: 0 3px 10px rgba(212, 255, 31, 0.25);
+  }
+}
+
+/* ==========================================================================
+   Pull-Quote Cards, Sentence-Bounded Pull-Quotes & Inline Quote Highlights
+   ========================================================================== */
+article p.polish-quote-card,
+article strong.polish-quote-block {
+  position: relative;
+  display: block;
+  margin: 28px 0;
+  padding: 24px 28px 22px 28px;
+  background-color: var(--surface);
+  background-image: linear-gradient(
+    225deg,
+    var(--sig-color) 0 calc(var(--intent) * 14px),
+    transparent calc(var(--intent) * 14px)
+  );
+  border: 1.5px solid color-mix(in srgb, var(--line-strong) calc(22% + var(--intent) * 78%), var(--line));
+  border-top: 3px solid var(--sig-color);
+  font-family: var(--font-display);
+  font-size: clamp(1.06rem, 1.01rem + 0.24vw, 1.2rem);
+  font-weight: 700;
+  line-height: 1.66;
+  color: var(--ink);
+  box-shadow: var(--hard-offset) var(--hard-offset) 0 color-mix(in srgb, var(--sig-color) 20%, transparent);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+article p.polish-quote-card::before,
+article strong.polish-quote-block::before {
+  content: "";
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 14px;
+  height: 14px;
+  border-top: 3px solid color-mix(in srgb, var(--sig-color) 40%, transparent);
+  border-left: 3px solid color-mix(in srgb, var(--sig-color) 40%, transparent);
+  pointer-events: none;
+}
+
+@media (min-width: 960px) {
+  article p.polish-quote-card,
+  article strong.polish-quote-block {
+    margin-left: calc(var(--intent) * -18px);
+    margin-right: calc(var(--intent) * 18px);
+  }
+}
+
+/* Inline quote emphasis without breaking surrounding punctuation */
+article strong.polish-quote-inline {
+  font-weight: 750;
+  background-image: linear-gradient(
+    to top,
+    color-mix(in srgb, var(--signal) calc(24% + var(--intent) * 42%), transparent) 38%,
+    transparent 38%
+  );
+  padding: 0 2px;
+  border-radius: 1px;
+}
+
+@media (prefers-color-scheme: dark) {
+  article strong.polish-quote-inline {
+    background-image: linear-gradient(
+      to top,
+      color-mix(in srgb, var(--accent) calc(22% + var(--intent) * 32%), transparent) 36%,
+      transparent 36%
+    );
+  }
+}
+
+/* Conclusion Climax Card (#sec-12 + p) */
+article p.polish-climax-card {
+  position: relative;
+  margin: 24px 0 36px;
+  padding: 28px 32px;
+  background-color: var(--ink);
+  background-image: linear-gradient(225deg, var(--signal) 0 18px, transparent 18px);
+  color: var(--surface);
+  font-family: var(--font-display);
+  font-size: clamp(1.08rem, 1rem + 0.35vw, 1.24rem);
+  line-height: 1.72;
+  border: 2px solid var(--ink);
+  box-shadow: 8px 8px 0 var(--accent);
+}
+
+article p.polish-climax-card::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 64px;
+  height: 5px;
+  background: var(--signal);
+}
+
+article p.polish-climax-card strong {
+  color: var(--signal);
+  font-weight: 800;
+}
+
+@media (prefers-color-scheme: dark) {
+  article p.polish-climax-card {
+    background: #141c2e;
+    color: #eef2f8;
+    border-color: var(--accent);
+    box-shadow: 8px 8px 0 var(--signal);
+  }
+
+  article p.polish-climax-card strong {
+    color: var(--signal);
+  }
+}
+
+/* ==========================================================================
+   Aside Notes (Cut-Corner Editorial Margin Box — No AI-slop left bar!)
+   ========================================================================== */
+main#main article aside.note {
+  position: relative;
+  background: var(--note);
+  border: 1px solid color-mix(in srgb, var(--line-strong) 22%, var(--line));
+  border-left: 1px solid color-mix(in srgb, var(--line-strong) 22%, var(--line));
+  border-top: 2.5px solid var(--sig-color);
+  border-radius: 0;
+  padding: 16px 20px;
+  margin: 26px 0 30px;
+  font-size: 0.93rem;
+  line-height: 1.72;
+  color: var(--ink);
+  clip-path: polygon(
+    0 0,
+    calc(100% - calc(var(--intent) * 12px)) 0,
+    100% calc(var(--intent) * 12px),
+    100% 100%,
+    0 100%
+  );
+}
+
+main#main article aside.note p:last-child {
+  margin-bottom: 0;
+}
+
+/* ==========================================================================
+   Figures, SVG Art Plates & Mermaid Diagrams
+   IMPORTANT: Preserve original transform: translateX(-50%) on .section-figure!
+   ========================================================================== */
+figure {
+  margin: 36px 0 42px;
+}
+
+figure.hero-figure {
+  max-width: 820px;
+  margin: 20px auto 32px;
+}
+
+figure picture {
+  display: block;
+  position: relative;
+}
+
+figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 2px;
+  border: 1.5px solid color-mix(in srgb, var(--line-strong) 20%, var(--line));
+  background: #f8f9fb;
+  box-shadow: var(--shadow);
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+@media (prefers-color-scheme: dark) {
+  figure img {
+    background: #f6f7fa;
+    border-color: rgba(238, 242, 248, 0.22);
+    padding: 4px;
+  }
+}
+
+figure img:hover {
+  border-color: var(--accent);
+  box-shadow:
+    var(--hard-offset) var(--hard-offset) 0 color-mix(in srgb, var(--accent) 26%, transparent),
+    0 16px 36px rgba(17, 19, 24, 0.12);
+}
+
+figure img:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 4px;
+}
+
+figcaption {
+  position: relative;
+  margin: 12px auto 0;
+  padding-top: 10px;
+  max-width: 720px;
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--muted);
+  text-align: left;
+  border-top: 1px solid var(--line);
+}
+
+/* Mermaid flowchart framing */
+figure.diagram .mermaid-scroll {
+  background-color: var(--surface);
+  background-image:
+    linear-gradient(to right, color-mix(in srgb, var(--line) 45%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in srgb, var(--line) 45%, transparent) 1px, transparent 1px);
+  background-size: 20px 20px;
+  border: 1.5px solid color-mix(in srgb, var(--line-strong) 22%, var(--line));
+  border-radius: 2px;
+  padding: 20px 16px;
+  box-shadow: var(--shadow);
+}
+
+/* ==========================================================================
+   Ordered Takeaways (Storyboard Sequence Cards in #sec-6)
+   ========================================================================== */
+main#main article ol.takeaways {
+  list-style: none;
+  counter-reset: step-counter;
+  padding: 0;
+  margin: 24px 0 32px;
+  display: grid;
+  gap: 12px;
+}
+
+main#main article ol.takeaways li {
+  counter-increment: step-counter;
+  position: relative;
+  display: block;
+  margin: 0;
+  padding: 15px 18px 15px 70px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+main#main article ol.takeaways li:hover {
+  border-color: var(--sig-color);
+}
+
+main#main article ol.takeaways li::before {
+  content: counter(step-counter, decimal-leading-zero);
+  position: absolute;
+  left: 18px;
+  top: 17px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 28px;
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: 12px;
+  font-weight: 800;
+  background: var(--ink);
+  color: var(--signal);
+}
+
+@media (prefers-color-scheme: dark) {
+  main#main article ol.takeaways li::before {
+    background: var(--signal);
+    color: var(--signal-ink);
+  }
+}
+
+/* ==========================================================================
+   Tables (.table-scroll) — Swiss Editorial Data Grid
+   ========================================================================== */
+.table-scroll {
+  margin: 24px 0 32px;
+  border: 1px solid var(--line);
+  border-top: 2.5px solid var(--line-strong);
+  border-radius: 0;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.table-scroll table {
+  font-size: 14.8px;
+  line-height: 1.62;
+}
+
+.table-scroll th {
+  background: var(--note);
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  padding: 12px 14px;
+  border-bottom: 1.5px solid var(--line-strong);
+}
+
+.table-scroll td {
+  padding: 13px 14px;
+  border-bottom: 1px solid var(--line);
+  color: var(--ink);
+}
+
+.table-scroll tbody tr {
+  transition: background-color 0.16s ease;
+}
+
+.table-scroll tbody tr:hover {
+  background: color-mix(in srgb, var(--accent-soft) 55%, transparent);
+}
+
+.table-scroll td.k {
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--sig-ink);
+}
+
+@media (max-width: 640px) {
+  .table-scroll {
+    border-top-width: 2px;
+    box-shadow: none;
+  }
+
+  .table-scroll tr {
+    padding: 14px 14px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .table-scroll td {
+    padding: 4px 0;
+  }
+
+  .table-scroll td::before {
+    font-family: var(--font-display);
+    font-size: 12px;
+    letter-spacing: 0.02em;
+    color: var(--muted);
+  }
+
+  .table-scroll td.k {
+    font-size: 15.5px;
+    color: var(--sig-ink);
+    margin-bottom: 2px;
+  }
+}
+
+/* ==========================================================================
+   Sources List & Editorial Colophon (#sec-13, #sec-14, footer)
+   ========================================================================== */
+article p.polish-colophon {
+  font-size: 0.92rem;
+  line-height: 1.78;
+  color: var(--muted);
+}
+
+main#main article ul.sources {
+  list-style: none;
+  counter-reset: src-counter;
+  padding: 0;
+  margin: 18px 0 0;
+  border-top: 1px solid var(--line);
+}
+
+main#main article ul.sources li {
+  counter-increment: src-counter;
+  position: relative;
+  display: block;
+  margin: 0;
+  padding: 12px 0 12px 42px;
+  border-bottom: 1px solid var(--line);
+  font-size: 14px;
+  line-height: 1.62;
+  color: var(--muted);
+}
+
+main#main article ul.sources li::before {
+  content: counter(src-counter, decimal-leading-zero);
+  position: absolute;
+  left: 0;
+  top: 14px;
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--sig-ink);
+}
+
+footer {
+  max-width: 720px;
+  margin: 64px auto 0;
+  padding: 20px 0 12px;
+  border-top: 2px solid var(--line-strong);
+  font-size: 13.5px;
+  line-height: 1.7;
+  color: var(--muted);
+}
+
+/* ==========================================================================
+   Lightbox Refinement (Preserves existing JS handlers & markup)
+   ========================================================================== */
+.lightbox {
+  background: rgba(10, 12, 18, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.lightbox img {
+  border-radius: 2px;
+  border: 1.5px solid rgba(255, 255, 255, 0.18);
+  background: #ffffff;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.65);
+}
+
+.lightbox button {
+  border-radius: 2px;
+  background: var(--signal);
+  color: var(--signal-ink);
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 14px;
+  border: 2px solid var(--signal-ink);
+  transition: transform 0.16s ease, background-color 0.16s ease;
+}
+
+.lightbox button:hover {
+  transform: translateY(-1px);
+  background: #ffffff;
+  color: #111318;
+}
+
+/* ==========================================================================
+   Back-to-Top Floating Button
+   ========================================================================== */
+.polish-top {
+  position: fixed;
+  right: 20px;
+  bottom: 22px;
+  z-index: 85;
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--ink);
+  color: var(--signal);
+  border: 1.5px solid var(--ink);
+  border-radius: 0;
+  font-family: var(--font-mono);
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(10px);
+  box-shadow: 4px 4px 0 var(--accent);
+  transition: opacity 0.22s ease, transform 0.22s ease, background-color 0.18s ease, color 0.18s ease;
+}
+
+.polish-top.is-shown {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.polish-top:hover {
+  background: var(--accent);
+  color: #ffffff;
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+@media (prefers-color-scheme: dark) {
+  .polish-top {
+    background: var(--signal);
+    color: var(--signal-ink);
+    border-color: var(--signal);
+    box-shadow: 4px 4px 0 var(--accent);
+  }
+
+  .polish-top:hover {
+    background: var(--accent);
+    color: #0c0e13;
+    border-color: var(--accent);
+  }
+}
+
+/* ==========================================================================
+   Scroll-Reveal Motion (Active ONLY when JS adds .polish-anim & motion allowed)
+   Note: Never animate transform on .section-figure itself (preserves translateX(-50%))
+   ========================================================================== */
+@media (prefers-reduced-motion: no-preference) {
+  html.polish-anim header.hero .eyebrow,
+  html.polish-anim header.hero h1,
+  html.polish-anim header.hero .lede,
+  html.polish-anim header.hero .byline {
+    animation: polishHeroIn 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  html.polish-anim header.hero h1 { animation-delay: 0.06s; }
+  html.polish-anim header.hero .lede { animation-delay: 0.12s; }
+  html.polish-anim header.hero .byline { animation-delay: 0.17s; }
+
+  @keyframes polishHeroIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  html.polish-anim .polish-reveal {
+    opacity: 0;
+    translate: 0 16px;
+    transition: opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1), translate 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  html.polish-anim .polish-reveal.is-visible {
+    opacity: 1;
+    translate: 0 0;
+  }
+
+  /* For section-figure, reveal its inner picture & figcaption so figure's translateX(-50%) is untouched */
+  html.polish-anim figure.section-figure.polish-fig-reveal picture,
+  html.polish-anim figure.section-figure.polish-fig-reveal figcaption {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1), transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  html.polish-anim figure.section-figure.polish-fig-reveal.is-visible picture,
+  html.polish-anim figure.section-figure.polish-fig-reveal.is-visible figcaption {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==========================================================================
+   Mobile Responsive Craft (390px: zero horizontal overflow, hero + cover visible)
+   ========================================================================== */
+@media (max-width: 760px) {
+  main#main article h2[id^="sec-"] {
+    margin: 56px 0 18px;
+    padding-top: 16px;
+    gap: 10px;
+  }
+
+  main#main article h2[id^="sec-"]::before {
+    min-width: 40px;
+    height: 32px;
+    font-size: 0.76rem;
+  }
+}
+
+@media (max-width: 640px) {
+  html body {
+    font-size: 16px;
+    line-height: 1.78;
+    background-size: 20px 20px;
+  }
+
+  nav.toc ul {
+    padding: 0 12px;
+    min-height: 44px;
+    gap: 4px;
+  }
+
+  nav.toc a {
+    padding: 5px 10px;
+    font-size: 12.5px;
+    min-height: 30px;
+  }
+
+  .polish-now {
+    top: 45px;
+    padding: 5px 14px;
+  }
+
+  .page {
+    padding: 0 16px 72px;
+  }
+
+  /* Compact hero so title + cover SVG both appear clearly in the 390px first screen */
+  header.hero {
+    padding: 18px 0 14px;
+    margin-bottom: 14px;
+  }
+
+  header.hero::before {
+    width: 44px;
+    height: 3px;
+    margin-bottom: 10px;
+  }
+
+  header.hero .eyebrow {
+    margin-bottom: 10px;
+    padding: 2px 8px;
+    font-size: 11.5px;
+  }
+
+  header.hero h1 {
+    font-size: clamp(1.52rem, 6.2vw, 1.95rem);
+    line-height: 1.24;
+    margin-bottom: 10px;
+  }
+
+  header.hero p.lede {
+    font-size: 14px;
+    line-height: 1.52;
+    margin-bottom: 8px;
+  }
+
+  header.hero p.byline {
+    font-size: 12px;
+    padding-top: 8px;
+  }
+
+  figure.hero-figure {
+    margin: 14px auto 22px;
+  }
+
+  figure.hero-figure picture img {
+    max-width: 280px;
+    margin: 0 auto;
+  }
+
+  article p.polish-quote-card,
+  article strong.polish-quote-block {
+    padding: 18px 18px 16px 20px;
+    margin: 22px 0;
+    font-size: 1.03rem;
+  }
+
+  article p.polish-climax-card {
+    padding: 20px 18px;
+    box-shadow: 5px 5px 0 var(--accent);
+  }
+
+  .polish-top {
+    right: 14px;
+    bottom: 16px;
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
+  }
+}
+
+/* ==========================================================================
+   Print Styles (Clean High-Contrast Editorial Output)
+   ========================================================================== */
+@media print {
+  html.polish-anim .polish-reveal,
+  html.polish-anim figure.section-figure.polish-fig-reveal picture,
+  html.polish-anim figure.section-figure.polish-fig-reveal figcaption {
+    opacity: 1 !important;
+    transform: none !important;
+    translate: none !important;
+    visibility: visible !important;
+  }
+
+  figure img,
+  figure picture,
+  figure svg {
+    max-width: 100% !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+
+  * {
+    box-shadow: none !important;
+    text-shadow: none !important;
+    clip-path: none !important;
+    animation: none !important;
+    transition: none !important;
+  }
+
+  html body {
+    background: #ffffff !important;
+    color: #000000 !important;
+    font-size: 11pt;
+    line-height: 1.65;
+  }
+
+  nav.toc,
+  .polish-progress,
+  .polish-rail,
+  .polish-now,
+  .polish-top,
+  .lightbox,
+  a.skip {
+    display: none !important;
+  }
+
+  .page {
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  main#main article {
+    max-width: 100% !important;
+  }
+
+  article figure.section-figure,
+  .table-scroll.wide {
+    margin-left: 0 !important;
+    transform: none !important;
+    width: 100% !important;
+  }
+
+  main#main article h2[id^="sec-"] {
+    margin-left: 0 !important;
+    transform: none !important;
+    break-after: avoid;
+    page-break-after: avoid;
+    margin-top: 24pt;
+    border-top: 1.5pt solid #000000 !important;
+  }
+
+  main#main article h2[id^="sec-"]::before {
+    background: #ffffff !important;
+    color: #000000 !important;
+    border: 1pt solid #000000 !important;
+  }
+
+  figure,
+  aside.note,
+  .table-scroll,
+  p.polish-quote-card,
+  strong.polish-quote-block,
+  p.polish-climax-card {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  article p.polish-climax-card {
+    background: #ffffff !important;
+    color: #000000 !important;
+    border: 1.5pt solid #000000 !important;
+  }
+
+  article p.polish-climax-card strong {
+    color: #000000 !important;
+  }
+
+  article a[href*="youtube.com/watch"][href*="&t="] {
+    background: #ffffff !important;
+    color: #000000 !important;
+    border: 0.75pt solid #555555 !important;
+  }
+}
+</style></head>
 <body>
 <a class="skip" href="#main">跳到正文</a>
 <nav class="toc" aria-label="章節導覽"><ul><li><a href="#sec-1" title="四個破綻從哪裡來">四個破綻</a></li><li><a href="#sec-2" title="你投入什麼，就會得到什麼">上下文</a></li><li><a href="#sec-3" title="從地鐵月台到設計稿">設計稿</a></li><li><a href="#sec-4" title="做原型變快了，看人用不用沒有變快">原型週期</a></li><li><a href="#sec-5" title="先獨立、再併回：Claude Design 走過的路">產品沿革</a></li><li><a href="#sec-6" title="同一個平台上的儀表板與動畫">儀表板</a></li><li><a href="#sec-7" title="模型判斷不了品味時，怎麼測一個 skill">測 skill</a></li><li><a href="#sec-8" title="品味，以及打錯字的價值">品味</a></li><li><a href="#sec-9" title="一條對話跑一個月，Claude Tag 當成一個人">Claude Tag</a></li><li><a href="#sec-10" title="從 Arc 到「Arc 風格側邊欄」">Arc</a></li><li><a href="#sec-11" title="對照官方：方案限制與講者說法">對照官方</a></li><li><a href="#sec-12" title="重點結論與實際啟示">結論</a></li><li><a href="#sec-13" title="製作說明：這篇導讀由 AI 模型完成">製作說明</a></li><li><a href="#sec-14" title="來源清單">來源</a></li></ul></nav>
@@ -270,5 +1810,465 @@ footer{max-width:720px;margin:64px auto 0;padding-top:16px;border-top:1px solid 
   }catch(e){}
 })();
 </script>
-</body>
+<script data-polish>/* ==========================================================================
+   Anti-Slop Editorial Interaction Layer — Nate Parrott × Peter Yang
+   Zero content mutations, zero invented text, zero forbidden APIs.
+   ========================================================================== */
+(function () {
+  'use strict';
+
+  var docEl = document.documentElement;
+  var body = document.body;
+  if (!docEl || !body) {
+    return;
+  }
+
+  var mqReduce = window.matchMedia
+    ? window.matchMedia('(prefers-reduced-motion: reduce)')
+    : null;
+
+  function isReducedMotion() {
+    return !!(mqReduce && mqReduce.matches);
+  }
+
+  function pad2(n) {
+    return n < 10 ? '0' + String(n) : String(n);
+  }
+
+  function makeEl(tag, className, attrs) {
+    var el = document.createElement(tag);
+    el.setAttribute('data-polish', 'true');
+    if (className) {
+      el.className = className;
+    }
+    if (attrs) {
+      var keys = Object.keys(attrs);
+      for (var i = 0; i < keys.length; i += 1) {
+        el.setAttribute(keys[i], attrs[keys[i]]);
+      }
+    }
+    return el;
+  }
+
+  /* ------------------------------------------------------------------------
+     1. Collect Existing Headings & TOC Metadata (Source of Truth)
+     ------------------------------------------------------------------------ */
+  var article = document.querySelector('main article') || document.querySelector('article');
+  var hero = document.querySelector('header.hero');
+  var heroTitle = hero ? hero.querySelector('h1') : null;
+  var tocNav = document.querySelector('nav.toc');
+  var tocList = tocNav ? tocNav.querySelector('ul') : null;
+  var tocLinks = tocNav ? Array.prototype.slice.call(tocNav.querySelectorAll('a[href^="#sec-"]')) : [];
+  var headings = Array.prototype.slice.call(document.querySelectorAll('h2[id^="sec-"]'));
+
+  if (!headings.length) {
+    return;
+  }
+
+  var tocMap = {};
+  for (var t = 0; t < tocLinks.length; t += 1) {
+    var href = tocLinks[t].getAttribute('href');
+    if (href && href.charAt(0) === '#') {
+      tocMap[href.slice(1)] = tocLinks[t];
+    }
+  }
+
+  var totalSec = headings.length;
+  var totalStr = pad2(totalSec);
+
+  /* ------------------------------------------------------------------------
+     2. Classify Pull-Quotes, Inline Quote Highlights & Colophon (No Text Edits)
+     ------------------------------------------------------------------------ */
+  function hasTimestampLink(el) {
+    return !!el.querySelector('a[href*="youtube.com/watch"][href*="&t="]');
+  }
+
+  function getTrimmedSiblingText(node, dir) {
+    var cur = dir < 0 ? node.previousSibling : node.nextSibling;
+    while (cur) {
+      var txt = cur.textContent || '';
+      if (txt.trim().length > 0) {
+        return txt.trim();
+      }
+      cur = dir < 0 ? cur.previousSibling : cur.nextSibling;
+    }
+    return '';
+  }
+
+  if (article) {
+    var paragraphs = Array.prototype.slice.call(article.querySelectorAll('p'));
+    for (var pIdx = 0; pIdx < paragraphs.length; pIdx += 1) {
+      var p = paragraphs[pIdx];
+      if (p.closest('aside') || p.closest('figcaption')) {
+        continue;
+      }
+
+      /* Identify short standalone quote-centric paragraphs */
+      var pText = (p.textContent || '').trim();
+      var pHasTs = hasTimestampLink(p);
+      var hasQuoteMarks = pText.indexOf('「') !== -1 && pText.indexOf('」') !== -1;
+
+      if (pHasTs && hasQuoteMarks && pText.length <= 92) {
+        p.classList.add('polish-quote-card');
+        continue;
+      }
+
+      /* Inspect <strong> quote segments inside longer paragraphs */
+      var strongs = Array.prototype.slice.call(p.querySelectorAll('strong'));
+      for (var sIdx = 0; sIdx < strongs.length; sIdx += 1) {
+        var st = strongs[sIdx];
+        var stText = (st.textContent || '').trim();
+        if (!hasTimestampLink(st) || stText.indexOf('「') === -1) {
+          continue;
+        }
+
+        var prevTxt = getTrimmedSiblingText(st, -1);
+        var nextTxt = getTrimmedSiblingText(st, 1);
+        var prevEndsClean =
+          prevTxt === '' ||
+          /[。：！？）」]$/.test(prevTxt);
+        var nextStartsClean =
+          nextTxt === '' ||
+          !/^[。，、；：！？）]/.test(nextTxt);
+
+        if (stText.length >= 16 && prevEndsClean && nextStartsClean) {
+          st.classList.add('polish-quote-block');
+        } else {
+          st.classList.add('polish-quote-inline');
+        }
+      }
+    }
+
+    /* Mark Conclusion (#sec-12) climax paragraph */
+    var sec12 = document.getElementById('sec-12');
+    if (sec12 && sec12.nextElementSibling && sec12.nextElementSibling.tagName === 'P') {
+      sec12.nextElementSibling.classList.add('polish-climax-card');
+    }
+
+    /* Mark Colophon paragraphs (#sec-13) */
+    var sec13 = document.getElementById('sec-13');
+    if (sec13) {
+      var walk = sec13.nextElementSibling;
+      while (walk && walk.tagName !== 'H2') {
+        if (walk.tagName === 'P') {
+          walk.classList.add('polish-colophon');
+        }
+        walk = walk.nextElementSibling;
+      }
+    }
+  }
+
+  /* ------------------------------------------------------------------------
+     3. Reading Progress Bar (Top 3px Precision Rule)
+     ------------------------------------------------------------------------ */
+  var progressBar = makeEl('div', 'polish-progress', { 'aria-hidden': 'true' });
+  var progressFill = makeEl('span', 'polish-progress-fill', { 'aria-hidden': 'true' });
+  progressBar.appendChild(progressFill);
+  body.appendChild(progressBar);
+
+  /* ------------------------------------------------------------------------
+     4. Mobile Current Chapter Strip (Only existing h2 text + chapter index)
+     ------------------------------------------------------------------------ */
+  var nowStrip = makeEl('div', 'polish-now', { 'aria-hidden': 'true' });
+  var nowIdx = makeEl('span', 'polish-now-idx', { 'aria-hidden': 'true' });
+  var nowTitle = makeEl('span', 'polish-now-title', { 'aria-hidden': 'true' });
+  nowIdx.textContent = '01/' + totalStr;
+  nowTitle.textContent = (headings[0].textContent || '').trim();
+  nowStrip.appendChild(nowIdx);
+  nowStrip.appendChild(nowTitle);
+  body.appendChild(nowStrip);
+
+  /* ------------------------------------------------------------------------
+     5. Desktop Editorial Sidebar Chapter Rail (1280px+)
+     ------------------------------------------------------------------------ */
+  var railLabel = (tocNav && tocNav.getAttribute('aria-label')) || '';
+  var railAttrs = {};
+  if (railLabel) {
+    railAttrs['aria-label'] = railLabel;
+  }
+  var rail = makeEl('nav', 'polish-rail', railAttrs);
+
+  var railHead = makeEl('div', 'polish-rail-head', { 'aria-hidden': 'true' });
+  var emblem = makeEl('div', 'polish-emblem', { 'aria-hidden': 'true' });
+  for (var e = 0; e < 4; e += 1) {
+    emblem.appendChild(makeEl('span', '', { 'aria-hidden': 'true' }));
+  }
+  var railCounter = makeEl('span', 'polish-rail-counter', { 'aria-hidden': 'true' });
+  railCounter.textContent = '01 / ' + totalStr;
+  railHead.appendChild(emblem);
+  railHead.appendChild(railCounter);
+  rail.appendChild(railHead);
+
+  var railList = makeEl('ol', 'polish-rail-list');
+  var railLinkMap = {};
+
+  for (var i = 0; i < headings.length; i += 1) {
+    var h = headings[i];
+    var id = h.id;
+    var fullTitle = (h.textContent || '').trim();
+    var shortLabel = tocMap[id] ? (tocMap[id].textContent || '').trim() : fullTitle;
+    var numText = pad2(i + 1);
+
+    var li = makeEl('li');
+    var a = makeEl('a', '', {
+      href: '#' + id,
+      title: fullTitle
+    });
+    var numSpan = makeEl('span', 'polish-rail-num', { 'aria-hidden': 'true' });
+    numSpan.textContent = numText;
+    var txtSpan = makeEl('span', 'polish-rail-txt');
+    txtSpan.textContent = shortLabel;
+
+    a.appendChild(numSpan);
+    a.appendChild(txtSpan);
+    (function (targetHeading) {
+      a.addEventListener('click', function () {
+        if (!targetHeading.hasAttribute('tabindex')) {
+          targetHeading.setAttribute('tabindex', '-1');
+        }
+        try {
+          targetHeading.focus({ preventScroll: true });
+        } catch (err) {
+          /* Ignore older browsers without focus options */
+        }
+      });
+    })(h);
+    li.appendChild(a);
+    railList.appendChild(li);
+    railLinkMap[id] = a;
+  }
+
+  rail.appendChild(railList);
+  body.appendChild(rail);
+
+  /* ------------------------------------------------------------------------
+     6. Back-to-Top Button (Accessible label reused from h1 text)
+     ------------------------------------------------------------------------ */
+  var topBtnLabel = heroTitle ? (heroTitle.textContent || '').trim() : document.title;
+  var topBtn = makeEl('button', 'polish-top', {
+    type: 'button',
+    'aria-label': topBtnLabel
+  });
+  var topGlyph = makeEl('span', '', { 'aria-hidden': 'true' });
+  topGlyph.textContent = '↑';
+  topBtn.appendChild(topGlyph);
+  topBtn.addEventListener('click', function () {
+    window.scrollTo({
+      top: 0,
+      behavior: isReducedMotion() ? 'auto' : 'smooth'
+    });
+  });
+  body.appendChild(topBtn);
+
+  /* ------------------------------------------------------------------------
+     7. Scroll-Driven "Default -> Intentional" Narrative & Active Section Sync
+     ------------------------------------------------------------------------ */
+  var activeId = '';
+  var rafPending = false;
+
+  function setActiveSection(index) {
+    if (index < 0) {
+      index = 0;
+    }
+    if (index >= headings.length) {
+      index = headings.length - 1;
+    }
+    var target = headings[index];
+    var id = target.id;
+    if (id === activeId) {
+      return;
+    }
+    activeId = id;
+
+    var numStr = pad2(index + 1);
+    nowIdx.textContent = numStr + '/' + totalStr;
+    nowTitle.textContent = (target.textContent || '').trim();
+    railCounter.textContent = numStr + ' / ' + totalStr;
+
+    for (var k = 0; k < headings.length; k += 1) {
+      var hid = headings[k].id;
+      var isAct = hid === id;
+      var tLink = tocMap[hid];
+      var rLink = railLinkMap[hid];
+
+      if (tLink) {
+        tLink.classList.toggle('is-active', isAct);
+        if (isAct) {
+          tLink.setAttribute('aria-current', 'location');
+        } else {
+          tLink.removeAttribute('aria-current');
+        }
+      }
+      if (rLink) {
+        rLink.classList.toggle('is-active', isAct);
+        if (isAct) {
+          rLink.setAttribute('aria-current', 'location');
+        } else {
+          rLink.removeAttribute('aria-current');
+        }
+      }
+    }
+
+    /* Gently keep active pill visible inside horizontal mobile TOC bar */
+    var activeToc = tocMap[id];
+    if (activeToc && tocList && tocList.scrollWidth > tocList.clientWidth) {
+      var targetScroll =
+        activeToc.offsetLeft - tocList.clientWidth / 2 + activeToc.offsetWidth / 2;
+      if (typeof tocList.scrollTo === 'function') {
+        tocList.scrollTo({
+          left: Math.max(0, targetScroll),
+          behavior: isReducedMotion() ? 'auto' : 'smooth'
+        });
+      } else {
+        tocList.scrollLeft = Math.max(0, targetScroll);
+      }
+    }
+  }
+
+  var lastScrollY = 0;
+
+  function updateOnScroll() {
+    rafPending = false;
+    var scrollY = window.pageYOffset || docEl.scrollTop || 0;
+    var maxScroll = Math.max(1, docEl.scrollHeight - window.innerHeight);
+    var rawProgress = Math.min(1, Math.max(0, scrollY / maxScroll));
+
+    docEl.style.setProperty('--scroll-progress', rawProgress.toFixed(4));
+
+    if (isReducedMotion()) {
+      docEl.style.setProperty('--intent', '1');
+      docEl.setAttribute('data-stage', '3');
+    } else {
+      /* Ramp intentionality smoothly from 0 at top to 1 by ~82% (conclusion chapter) */
+      var intentRaw = Math.min(1, Math.max(0, rawProgress / 0.82));
+      var intentEased = intentRaw * intentRaw * (3 - 2 * intentRaw);
+      docEl.style.setProperty('--intent', intentEased.toFixed(4));
+
+      var stage = '0';
+      if (intentEased >= 0.78) {
+        stage = '3';
+      } else if (intentEased >= 0.42) {
+        stage = '2';
+      } else if (intentEased >= 0.12) {
+        stage = '1';
+      }
+      docEl.setAttribute('data-stage', stage);
+    }
+
+    /* Dock mobile chapter strip flush below sticky nav.toc & show only after hero */
+    if (tocNav) {
+      var navRect = tocNav.getBoundingClientRect();
+      if (navRect.height > 0) {
+        nowStrip.style.top = Math.round(navRect.height) + 'px';
+      }
+    }
+    var heroBottom = hero ? hero.getBoundingClientRect().bottom : 240;
+    nowStrip.classList.toggle('is-shown', heroBottom < 56);
+
+    /* Show back-to-top button after scrolling down comfortably */
+    var pastFold = scrollY > Math.max(520, window.innerHeight * 0.9);
+    var narrow = window.innerWidth <= 700;
+    topBtn.classList.toggle('is-shown', pastFold && (!narrow || scrollY < lastScrollY - 2));
+    if (!narrow || Math.abs(scrollY - lastScrollY) > 2) lastScrollY = scrollY;
+
+    /* Determine active chapter based on viewport reading line */
+    var threshold = 132;
+    var currentIndex = 0;
+    for (var j = 0; j < headings.length; j += 1) {
+      var rect = headings[j].getBoundingClientRect();
+      if (rect.top <= threshold) {
+        currentIndex = j;
+      } else {
+        break;
+      }
+    }
+    setActiveSection(currentIndex);
+  }
+
+  function scheduleUpdate() {
+    if (!rafPending) {
+      rafPending = true;
+      window.requestAnimationFrame(updateOnScroll);
+    }
+  }
+
+  window.addEventListener('scroll', scheduleUpdate, { passive: true });
+  window.addEventListener('resize', scheduleUpdate, { passive: true });
+
+  /* ------------------------------------------------------------------------
+     8. Gentle Scroll-Reveal via IntersectionObserver (Disabled in Reduced Motion)
+     ------------------------------------------------------------------------ */
+  function initReveals() {
+    if (isReducedMotion() || typeof window.IntersectionObserver !== 'function') {
+      docEl.classList.remove('polish-anim');
+      return;
+    }
+
+    docEl.classList.add('polish-anim');
+
+    var targets = [];
+    if (article) {
+      var candidates = article.querySelectorAll(
+        'h2[id^="sec-"], aside.note, .table-scroll, ol.takeaways, p.polish-quote-card, strong.polish-quote-block, p.polish-climax-card, figure.diagram'
+      );
+      for (var c = 0; c < candidates.length; c += 1) {
+        var el = candidates[c];
+        var r = el.getBoundingClientRect();
+        if (r.top > window.innerHeight * 0.94) {
+          el.classList.add('polish-reveal');
+          targets.push(el);
+        }
+      }
+
+      /* Section figures animate inner picture/figcaption to preserve figure translateX(-50%) */
+      var secFigs = article.querySelectorAll('figure.section-figure');
+      for (var f = 0; f < secFigs.length; f += 1) {
+        var fig = secFigs[f];
+        if (fig.getBoundingClientRect().top > window.innerHeight * 0.94) {
+          fig.classList.add('polish-fig-reveal');
+          targets.push(fig);
+        }
+      }
+    }
+
+    if (!targets.length) {
+      return;
+    }
+
+    var io = new window.IntersectionObserver(
+      function (entries) {
+        for (var m = 0; m < entries.length; m += 1) {
+          if (entries[m].isIntersecting) {
+            entries[m].target.classList.add('is-visible');
+            io.unobserve(entries[m].target);
+          }
+        }
+      },
+      {
+        rootMargin: '0px 0px -6% 0px',
+        threshold: 0.04
+      }
+    );
+
+    for (var n = 0; n < targets.length; n += 1) {
+      io.observe(targets[n]);
+    }
+  }
+
+  /* React cleanly if user toggles prefers-reduced-motion live */
+  if (mqReduce && typeof mqReduce.addEventListener === 'function') {
+    mqReduce.addEventListener('change', function () {
+      if (isReducedMotion()) {
+        docEl.classList.remove('polish-anim');
+        docEl.style.setProperty('--intent', '1');
+        docEl.setAttribute('data-stage', '3');
+      }
+      scheduleUpdate();
+    });
+  }
+
+  initReveals();
+  updateOnScroll();
+})();
+</script></body>
 </html>
