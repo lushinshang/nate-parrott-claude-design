@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 rx=%2714%27 fill=%27%230f7b6c%27/%3E%3Cpath d=%27M12 46 26 30l8 8 18-22%27 stroke=%27white%27 stroke-width=%277%27 fill=%27none%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27/%3E%3C/svg%3E">
+<title>Full Tutorial: How to Fix AI Slop with Claude Design in 40 Minutes（非官方繁中譯文）</title>
+<meta name="description" content="Nate Parrott × Peter Yang〈How to Fix AI Slop with Claude Design〉全文繁體中文譯文，採台灣用語；非官方翻譯（AI 模型翻譯），依 YouTube 機器字幕。">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:title" content="Full Tutorial: How to Fix AI Slop with Claude Design in 40 Minutes（非官方繁中譯文）">
+<meta property="og:description" content="Nate Parrott × Peter Yang〈How to Fix AI Slop with Claude Design〉全文繁體中文譯文，採台灣用語；非官方翻譯（AI 模型翻譯），依 YouTube 機器字幕。">
+<meta property="og:image" content="https://lushinshang.github.io/nate-parrott-claude-design/images/og-hero.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="封面示意圖：一整片幾乎相同的米白卡片，每張都有橘色邊條、深色標題列與橘色按鈕；其中一張稍大，換成深藍底、藍色色塊、黃色圓點與綠色方塊的不同版面。">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Full Tutorial: How to Fix AI Slop with Claude Design in 40 Minutes（非官方繁中譯文）">
+<meta name="twitter:description" content="Nate Parrott × Peter Yang〈How to Fix AI Slop with Claude Design〉全文繁體中文譯文，採台灣用語；非官方翻譯（AI 模型翻譯），依 YouTube 機器字幕。">
+<meta name="twitter:image" content="https://lushinshang.github.io/nate-parrott-claude-design/images/og-hero.jpg">
+<meta property="og:url" content="https://lushinshang.github.io/nate-parrott-claude-design/translation-zh.html">
+<style>
+:root{
+  --bg:#f9f7f4; --surface:#fffdf9; --ink:#1a1a1a; --muted:#5f5b54; --line:#e4dfd6;
+  --accent:#0f7b6c; --accent-ink:#0b5c51; --note:#f0ebe1; --code:#ece6d8; --link:#1f5f99;
+  --card:#fff6e8; --card-line:#e8c99a; --shadow:0 6px 24px rgba(40,30,10,.08);
+}
+@media (prefers-color-scheme: dark){
+  :root{ --bg:#1b1a18; --surface:#26241f; --ink:#ece8de; --muted:#aaa497; --line:#3a3730;
+    --accent:#4fc1ad; --accent-ink:#7fd6c6; --note:#2f2c25; --code:#33302a; --link:#8fbde8;
+    --card:#2d2820; --card-line:#5b4a30; --shadow:0 6px 24px rgba(0,0,0,.35);}
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+body{margin:0;background:var(--bg);color:var(--ink);overflow-x:hidden;
+  font:17px/1.7 "Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;letter-spacing:0}
+.skip{position:absolute;left:-999px;top:0;background:var(--accent);color:#fff;padding:8px 14px;z-index:300}
+.skip:focus{left:8px;top:8px}
+nav.toc{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--bg) 92%,transparent);
+  backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+nav.toc ul{list-style:none;margin:0 auto;padding:0 16px;max-width:1120px;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none;
+  white-space:nowrap;-webkit-overflow-scrolling:touch;min-height:52px;align-items:center}
+nav.toc ul::-webkit-scrollbar{display:none}
+nav.toc a{display:inline-block;padding:8px 12px;border-radius:999px;color:var(--muted);text-decoration:none;font-size:14px;min-height:36px}
+nav.toc a:hover,nav.toc a:focus-visible{background:var(--note);color:var(--ink)}
+a{color:var(--link);overflow-wrap:anywhere}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.page{max-width:1120px;margin:0 auto;padding:0 20px 80px}
+header.hero{padding:56px 0 8px;text-align:center}
+.eyebrow{margin:0 0 8px;color:var(--accent-ink);font-weight:700;letter-spacing:0;font-size:14px}
+h1{margin:0 auto 14px;max-width:820px;font-size:clamp(1.7rem,1.2rem + 2vw,2.6rem);line-height:1.3;text-wrap:balance}
+.byline{margin:0 0 6px;color:var(--muted);font-size:14px}
+.video-link{margin:0 0 28px;font-size:14px}
+figure{margin:32px 0}
+figure img{display:block;width:100%;height:auto;aspect-ratio:var(--ar-d,16/9);object-fit:contain;border-radius:12px;
+  box-shadow:var(--shadow);background:var(--surface);cursor:zoom-in}
+@media (max-width:640px){figure picture img{aspect-ratio:var(--ar-m,9/16)}}
+@media (max-width:640px){figure.hero-figure picture img{max-width:300px;margin:0 auto}}
+figure.hero-figure{max-width:720px;margin-left:auto;margin-right:auto}
+hr{border:0;border-top:1px solid var(--line);margin:40px 0}
+p.figcap{margin:-18px auto 1.4em;text-align:center;font-size:14px;color:var(--muted)}
+figcaption{margin:10px auto 0;max-width:720px;font-size:14px;line-height:1.55;color:var(--muted);text-align:center}
+article{max-width:720px;margin:0 auto}
+article figure.section-figure{margin-left:50%;transform:translateX(-50%);width:min(860px,calc(100vw - 32px))}
+h2{margin:56px 0 12px;font-size:1.55rem;line-height:1.4;scroll-margin-top:72px;text-wrap:balance;
+  border-left:5px solid var(--accent);padding-left:14px;margin-left:-19px}
+h3{margin:36px 0 8px;font-size:1.2rem;line-height:1.45}
+p{margin:0 0 1.1em}
+ul,ol{margin:0 0 1.2em;padding-left:1.4em}
+li{margin:.35em 0}
+strong{font-weight:700}
+code{background:var(--code);padding:.1em .4em;border-radius:5px;font:0.9em ui-monospace,SFMono-Regular,Menlo,monospace;word-break:break-word}
+section.summary-card{background:var(--card);border:1px solid var(--card-line);border-radius:14px;padding:6px 22px 10px;margin:24px 0 8px;box-shadow:var(--shadow)}
+section.summary-card h2{margin:14px 0 8px;font-size:1.2rem;border-left:0;padding-left:0;margin-left:0}
+section.summary-card p{margin:0 0 .8em;font-size:16.5px}
+ol.takeaways{padding-left:1.6em}
+ol.takeaways li{margin:.8em 0;padding-left:.2em}
+ol.takeaways li::marker{color:var(--accent-ink);font-weight:700}
+ul.sources li{overflow-wrap:anywhere}
+aside.note{background:var(--note);border-left:4px solid var(--accent);border-radius:8px;padding:12px 16px;margin:0 0 1.6em;font-size:15px;color:var(--ink)}
+aside.note p,aside.note ul{margin:0 0 .6em}
+aside.note ul{padding-left:1.3em}
+figure.diagram{margin:28px 0}
+.mermaid-scroll{overflow-x:auto;max-width:100%;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px;-webkit-overflow-scrolling:touch}
+.mermaid-scroll pre{margin:0;font:14px/1.6 ui-monospace,SFMono-Regular,Menlo,monospace;white-space:pre;color:var(--ink)}
+.mermaid-scroll svg{display:block;margin:0 auto;height:auto;max-width:100%}
+.table-scroll{overflow-x:auto;margin:0 0 1.6em;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+.table-scroll table{border-collapse:collapse;width:100%;min-width:560px;font-size:15px;line-height:1.55}
+.table-scroll th,.table-scroll td{padding:10px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.table-scroll th{background:var(--note);font-weight:700}
+.table-scroll tr:last-child td{border-bottom:0}
+.table-scroll td.k{font-weight:600;white-space:nowrap}
+.table-scroll td.nw{white-space:nowrap}
+.table-scroll.wide{margin-left:50%;transform:translateX(-50%);width:min(1040px,calc(100vw - 32px))}
+@media (max-width:640px){.table-scroll.wide{margin-left:0;transform:none;width:auto}}
+@media (max-width:640px){
+  .table-scroll{overflow-x:visible}
+  .table-scroll table{min-width:0}
+  .table-scroll thead{position:absolute;left:-9999px}
+  .table-scroll tr,.table-scroll td{display:block}
+  .table-scroll tr{padding:10px 12px;border-bottom:1px solid var(--line)}
+  .table-scroll tr:last-child{border-bottom:0}
+  .table-scroll td{padding:2px 0;border:0}
+  .table-scroll td.k{color:var(--accent-ink);white-space:normal}
+  .table-scroll td.nw{white-space:normal}
+  .table-scroll td::before{content:attr(data-label) "：";font-weight:700;color:var(--muted);font-size:13px}
+}
+
+p.lede{margin:0 auto 10px;max-width:760px;color:var(--muted);font-size:16px;line-height:1.65}
+footer{max-width:720px;margin:64px auto 0;padding-top:16px;border-top:1px solid var(--line);color:var(--muted);font-size:14px}
+.lightbox{display:none;position:fixed;inset:0;z-index:200;background:rgba(20,18,14,.9);align-items:center;justify-content:center;padding:24px}
+.lightbox.is-open{display:flex}
+.lightbox img{max-width:96vw;max-height:90vh;width:auto;height:auto;border-radius:8px;box-shadow:0 12px 48px rgba(0,0,0,.5);background:#fff}
+.lightbox button{position:absolute;top:14px;right:14px;min-width:44px;min-height:44px;padding:8px 14px;border:0;border-radius:999px;
+  background:#fff;color:#222;font-size:15px;cursor:pointer}
+@media (max-width:760px){
+  h2{margin-left:0;border-left:0;padding-left:0;border-top:3px solid var(--accent);padding-top:10px}
+}
+@media (max-width:640px){
+  body{font-size:16px}
+  .page{padding:0 16px 64px}
+  header.hero{padding-top:36px}
+  h2{font-size:1.35rem}
+  section.summary-card{padding:4px 16px 8px}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">跳到正文</a>
+<nav class="toc" aria-label="章節導覽"><ul><li><a href="#sec-1" title="章節 1：Nate 的五個訣竅：讓 Claude 不再產出 AI slop（00:00）">1·00:00</a></li><li><a href="#sec-2" title="章節 2：示範：從一則手機筆記設計 Duet 功能（05:31）">2·05:31</a></li><li><a href="#sec-3" title="章節 3：Anthropic 設計師如何在幾天內做出原型（11:01）">3·11:01</a></li><li><a href="#sec-4" title="章節 4：Claude Design 為何以獨立產品推出（13:06）">4·13:06</a></li><li><a href="#sec-5" title="章節 5：讓設計一看就像 AI 做的四個破綻（18:55）">5·18:55</a></li><li><a href="#sec-6" title="章節 6：示範：把任何試算表變成即時儀表板（22:36）">6·22:36</a></li><li><a href="#sec-7" title="章節 7：示範：把儀表板做成 Claude Motion 影片（26:17）">7·26:17</a></li><li><a href="#sec-8" title="章節 8：AI 無法判斷品味時，如何測試設計 skill（31:11）">8·31:11</a></li><li><a href="#sec-9" title="章節 9：AI 有一天會有好品味嗎？（35:32）">9·35:32</a></li></ul></nav>
+<div class="page">
+<header class="hero">
+<p class="eyebrow">全文譯本（非官方）</p>
+<h1>Full Tutorial: How to Fix AI Slop with Claude Design in 40 Minutes（非官方繁中譯文）</h1>
+<p class="lede">Nate Parrott × Peter Yang，Peter Yang 頻道 2026-11-15 上傳，依 YouTube 機器字幕翻譯</p>
+<p class="byline">原影片：Peter Yang 頻道，2026-11-15 上傳　譯本整理：2026-11-22</p>
+</header>
+<main id="main"><article>
+<aside class="note"><p>本頁為非官方繁體中文翻譯，由 AI 模型翻譯（agy gemini-3.8-flash-medium）並經 Claude Opus 5.5 修詞，依 YouTube 機器字幕整理，未經人工校稿；僅約 55 句存疑句由 AI（agy gemini-3.8-flash-high）聆聽原音片段核對，其餘未對照原音，可能有誤。影片由 Peter Yang 頻道上傳，版權屬原權利人，僅供閱讀與研究；若有出入，以<a href="https://www.youtube.com/watch?v=604T-74s3KE" target="_blank" rel="noopener noreferrer">原影片</a>為準。本頁不標說話者。</p></aside>
+<hr>
+<h2 id="sec-1">章節 1：Nate 的五個訣竅：讓 Claude 不再產出 AI slop（00:00）</h2>
+<p><a href="https://www.youtube.com/watch?v=604T-74s3KE&amp;t=0s" target="_blank" rel="noopener noreferrer">00:00</a> 天啊，使用者要我做一個 App。我要發明出最出色的視覺風格。在 Claude 的腦海中，它覺得這完全是原創的。你投入什麼，就會得到什麼。給我大約 10 種不同的選項、不同的字型、不同的顏色、不同的視覺風格。我們在推出 Arc 之前，花了大概一年的時間在前期製作上。現在在 Anthropic，你大概一到兩天就能搞定。它跨越了從「爛得搞笑」到「單純很爛」的門檻，然後又從「很爛」進步到「這還算可以」。我對 After Effects 一竅不通，所以對我來說，我就像是：「天啊，我擁有了這項新能力。」</p>
+<p><a href="https://www.youtube.com/watch?v=604T-74s3KE&amp;t=31s" target="_blank" rel="noopener noreferrer">00:31</a> Claude 會說「這大概要花 6 週的時間」，而我會想「雖然很不想打擊你，Claude，但我們接下來 20 分鐘就要一起把這個做完，所以你最好趕快動工」。大家好，今天我非常興奮能歡迎 Nate，他是 Claude Design、Claude Motion 等產品背後的設計師。非常興奮能邀請 Nate 來向我們展示他究竟是如何設計 Anthropic 的真實功能，我相信這包括了 Duet、動態儀表板、動態影片等等更多內容。歡迎 Nate。很高興能來這裡。太棒了。那我們也許先整體聊聊 Claude 已經走過了很長一段歷程。</p>
+<p><a href="https://www.youtube.com/watch?v=604T-74s3KE&amp;t=62s" target="_blank" rel="noopener noreferrer">01:02</a> Opus 5.5，我很喜歡它。這是我最喜歡的模型。但你要如何從 Claude 獲得最佳的設計呢？像是它好像還是會帶點 Claude 式的慣性（Claudisms）之類的？所以你個人究竟是如何獲得最佳設計的？我總是說的那句話就是：你投入什麼，就會得到什麼。所以我一開始總是會給 Claude 大量的背景資訊，說明我正在設計什麼、它應該有什麼感覺、看起來應該是什麼樣子。如果我是從零開始設計全新的東西，我通常會給它螢幕截圖，有點像情緒板。我會給它我覺得很有趣的其他頁面範例。</p>
+<p><a href="https://www.youtube.com/watch?v=604T-74s3KE&amp;t=94s" target="_blank" rel="noopener noreferrer">01:34</a> 我會給它我覺得很酷的自己過去的作品。我也會要求它盡量發散思維，給我非常非常多的選項。這就是你從零開始時，擺脫 Claude 那種什麼東西看起來都差不多氛圍的方法：你對它說，嘿 Claude，這是我們要做的事。給我大約 10 種不同的選項，搭配不同的字型、不同的顏色、不同的視覺風格。然後通常我會看那些選項，並說，嘿，這些都不是很對，但我喜歡第一個選項的一點點，也喜歡第三個選項的一點點，所以再給我大概五個不同但以這些為基礎的選項，接著我就會從那裡繼續往下做。</p>
+<p><a href="https://www.youtube.com/watch?v=604T-74s3KE&amp;t=126s" target="_blank" rel="noopener noreferrer">02:06</a> 如果我是根據現有的程式碼庫設計，而且手頭有現成的產品——這是我大部分在做的事—— 對。我會讓 Claude 存取該程式碼庫，所以現在你可以在 Claude Code 內部使用 Claude Design，所以我會說：「嘿 Claude，直接讀取程式碼庫，藉由讀取程式碼，將它重現為 Claude Design。」它現在對這件事相當拿手。然後我會說：「好，從那裡開始，我們來做一些變化版本。」而且因為你是從現有的背景資訊出發，你就會得到看起來相符的成果。懂了。好的，所以也許甚至在打造 Claude 功能時，你實際上並不需要一整套設計系統之類的所有東西，你只要讓它讀取程式碼，然後搞清楚——</p>
+<p><a href="https://www.youtube.com/watch?v=604T-74s3KE&amp;t=161s" target="_blank" rel="noopener noreferrer">02:41</a> 這確實是我這陣子偏好的工作方式，這非常棒，因為當我過去用傳統設計工具進行設計時，我會花很多時間擷取螢幕截圖，並在該工具中重新繪製它們，因為程式碼才是唯一事實來源，而現在我只要讓 Claude 去做這項工作就行了。而且你知道，Claude 不是——有一陣子它對這件事蠻不在行的，但現在它相當厲害，而且越來越好，而且我認為再過幾個模型世代，我就能直接說：「嘿，去查看任何環境下任何語言的任何程式碼，並在畫布上以像素級精準重現它」，而它就能做到。</p>
+<p><a href="https://www.youtube.com/watch?v=604T-74s3KE&amp;t=192s" target="_blank" rel="noopener noreferrer">03:12</a> 而當你從零開始做全新事物時，比如可能不是 Anthropic 的功能，你會直接說：「嘿，就給我大概五個風格盡可能不同的隨機設計」，還是你有隨機亂數產生器之類的東西？你到底是怎麼做的？我通常就是索取一大堆東西。有時我實際上會先從索取線框稿開始。所以如果我覺得這是個特別有挑戰性的設計，而且我不希望 Claude 迷失在我要用什麼字型和顏色的視覺細節裡，我就會說：「嘿 Claude，製作一組具有不同版面配置的線框稿。」而且實際上，有時我甚至會要求它去思考同個領域中現有的 UI，思考那些東西是如何排版的，並將它們作為靈感來源。</p>
+<p><a href="https://www.youtube.com/watch?v=604T-74s3KE&amp;t=229s" target="_blank" rel="noopener noreferrer">03:49</a> 我認為優秀的設計師會做的是，他們會說：「嘿，我們在這裡要解決的問題是什麼，有哪些是人們已經理解的熟悉介面，可以作為捷徑，讓我們做出一個大家已經懂得如何使用的產品？」而你也可以要求 Claude 做同樣的事。說，嘿，如果我們正在打造一個待辦清單或收件匣，去想想人們使用的其他收件匣，找一個適合這個產品的收件匣，並以相同類型的結構繪製線框稿。太棒了。就我個人的經驗來說，我曾讓 Claude 幫我做幾張投影片，第一版看起來實在太像企業公版了。</p>
+<p><a href="https://www.youtube.com/watch?v=604T-74s3KE&amp;t=262s" target="_blank" rel="noopener noreferrer">04:22</a> 所以我直接跟 Claude 說，嘿，你的投影片看起來太像企業公版了。請盡可能發揮你的創造力。就像你知道的，你有動態 HTML。把它們做得更像一部電影，而不是一張投影片。之後它就做得非常出色。沒錯。沒錯。而且通常如果你要做一份非常大的簡報，我建議先在一開始就這麼做，直接說，嘿 Claude，在你去製作整份完整簡報之前，我想先探索一下視覺效果。這樣能為你省下大量的 token，因為如果 Claude 用你不喜歡的風格做完了整份簡報，你就得去跟 Claude 說，嘿，用另一種風格重做。你又得把那些 token 全花一次。所以先在一開始做好會好得多。</p>
+<p><a href="https://www.youtube.com/watch?v=604T-74s3KE&amp;t=292s" target="_blank" rel="noopener noreferrer">04:52</a> 本集節目由 Riverside 贊助播出。我所有的 Podcast 都是在 Riverside 錄製的，他們剛推出了四個 AI agent，協助處理從頭到尾的影片製作。你可以指派它們為來賓準備問題、精修剪輯、擷取精華片段，並準備好在社群媒體上發布的貼文，完全不需要離開該平台。每個 agent 都有自己的專長，而且你用得越多，它們就越記得你喜歡如何完成工作。最後要發布什麼，最終決定權仍在你手上。</p>
+<p><a href="https://www.youtube.com/watch?v=604T-74s3KE&amp;t=323s" target="_blank" rel="noopener noreferrer">05:23</a> 使用說明欄的連結和我的優惠碼 Peter Yang，就能免費試用全部四個 agent 一個月。現在回到我們的節目。</p>
+<h2 id="sec-2">章節 2：示範：從一則手機筆記設計 Duet 功能（05:31）</h2>
+<p><a href="https://www.youtube.com/watch?v=604T-74s3KE&amp;t=331s" target="_blank" rel="noopener noreferrer">05:31</a> 那我們何不請你分享螢幕畫面呢？因為我超級好奇一位真正的 Anthropic 設計師到底是如何打造真正的 Claude 功能的。對，我們非常想看。好。這是我在設計 Duet 時的一點小故事。我並沒有非常深入參與 Claude Duet 專案——也就是我們前幾天推出的個人 agent——但我稍微協助了早期的構想發想。這是我做過並交給團隊的一個小例子，我們最後雖然沒有實作它，但這代表了我會做並交給團隊成員的那種工作範例。</p>
+<p><a href="https://www.youtube.com/watch?v=604T-74s3KE&amp;t=364s" target="_blank" rel="noopener noreferrer">06:04</a> 它始於一個構想，那就是我們希望 Duet 能夠主動出擊，並且希望它為你提供一堆你可以拿它來做什麼的想法，而且我們可能得向你展示大約 20 個點子，才能找到一個你真正想做、或想交託出去的事情。所以我當時在尋找達成這件事的方法。我把這個功能稱作「以下是我能協助的事項」。因為有了這個點子，我下班回家搭地鐵時其實就開始著手了。我當時站在月台上。我開始把它輸入到我 iPhone 的備忘錄應用程式裡。</p>
+<p><a href="https://www.youtube.com/watch?v=604T-74s3KE&amp;t=395s" target="_blank" rel="noopener noreferrer">06:35</a> 我用非常非常高層次的視角，寫入了一堆關於我想要什麼的想法與思考。所以這是一則蠻長的筆記。也沒有那麼長，但裡面有些內容。我放了一些範例之類的東西。然後下車走回家的路上，我就直接把它貼進 Claude Code Remote。我把它放進我們真實的程式碼庫中，並說，嘿 Claude，我要你參考這則筆記，構想出一堆這個功能可能樣貌的點子，並像我之前說的，先從讀取我們的程式碼庫並重現它開始。嗯。隔天早上回到我的桌機前開始工作。</p>
+<p><a href="https://www.youtube.com/watch?v=604T-74s3KE&amp;t=428s" target="_blank" rel="noopener noreferrer">07:08</a> 而我拿到的——這差不多就是我開始切入的地方。Claude 已經讀取了整個程式碼庫。你可以在左側看到它重現了我們當時擁有的介面，那只是一個帶有訊息串流的每日簡報。而且它提供了一堆不同的選項，展示這個新設計可能長什麼樣子，對吧？其中一個是在一大段文字中以行內方式醒目提示那些點子，並提供不同的視覺風格；另外幾個則是在卡片上以各種樣式呈現的大型清單。</p>
+<p><a href="https://www.youtube.com/watch?v=604T-74s3KE&amp;t=460s" target="_blank" rel="noopener noreferrer">07:40</a> 這裡面還有更多選項是我沒能在這裡拉出來展示的。但那差不多就是我們開始的地方。從那裡開始，我就是跟 Claude 來回溝通，要求進行一堆高層次的調整。我當時說，嘿，卡片清單那種能不能做一個密度高很多的版本，不要副標題，允許換行，麻煩把分隔線拿掉？有點像是在給高層次的回饋，就像在後座指揮開車一樣。所以通常在 Claude Design 中，我的工作就是混合了像這樣在後座指揮——我只要說修改背景顏色、左側內距。有時我也會直接進入設計並親自編輯它，因為我們有相當齊全的控制功能，可以直接進去編輯裡面的東西。</p>
+<p><a href="https://www.youtube.com/watch?v=604T-74s3KE&amp;t=497s" target="_blank" rel="noopener noreferrer">08:17</a> 對。但因為我有一部分是用手機操作，加上那天覺得有點懶，所以我大部分都是直接用打字的。像是加入一些週期性任務的範例、等等等等、將圖示與儲存格對齊等等。最後得到了一些相當不錯的成果，便附上螢幕截圖發給團隊。如果我是真正要實作這個功能的人——雖然在這個案例中我不是，但如果我是的話——我真的只要進入同一個對話，然後說，好，Claude，該來實作它了。因為我們已經在程式碼庫中了，我們已經在一個連結到該程式碼庫的 Claude Code 工作階段中了。</p>
+<p><a href="https://www.youtube.com/watch?v=604T-74s3KE&amp;t=529s" target="_blank" rel="noopener noreferrer">08:49</a> 如果我叫 Claude 直接根據這些設計去建構它，它就會知道：好，我完全清楚這個設計中我們想要的 CSS 樣式、尺寸、字型、顏色以及版面配置。所以我就直接去程式碼庫中實作那些內容，而且幾乎不會有任何轉譯上的落差，這真的非常棒。那當初產生這五個不同設計的最初對話是什麼？你有你的 Apple 備忘錄，但你真的有要求五種變化版本嗎？我相信就是這個。可能還有稍微多一點內容，但大概沒有。我想——我想大概完全就只是把這個貼進去。</p>
+<p><a href="https://www.youtube.com/watch?v=604T-74s3KE&amp;t=560s" target="_blank" rel="noopener noreferrer">09:20</a> 然後在底部，大概是寫著像是：就給我一堆這個可能樣貌的選項。這通常是我做事的方式。我就會說：從程式碼庫重現、給我一堆選項，然後我們就繼續往下推進。懂了。為了確保我們的觀眾理解這點，你有五個變化版本，然後你開始對其中一個進行迭代？你是挑選了其中一個開始著手，還是怎麼樣？對。所以我相信我當時實際上是平行對多個版本進行迭代，但我會在特定時間要求針對特定幾個進行修改。我有點像囤積狂，所以我會把我所有的設計都保留在畫布上，這樣我就可以向大家展示：嘿，這是我探索過的所有不同方向。</p>
+<p><a href="https://www.youtube.com/watch?v=604T-74s3KE&amp;t=594s" target="_blank" rel="noopener noreferrer">09:54</a> 但我通常會說——我想你在螢幕截圖中可以看到我說：卡片清單選項能不能做一個密度高很多的版本？於是 Claude 就會直接在畫布上複製那份設計，做出一個更緊湊的新版本，但同時保留舊版本以便對照。老兄，我超愛這個提示詞，因為甚至像一年前 的時候，我常跟人們說：嘿，你必須精心打造一個非常詳細的提示詞，所有事情都要面面俱到，對吧？然後就像你一樣，我變得越來越懶。所以我的每一個提示詞都有拼字錯誤，對人類來說甚至看不太懂，但對 Claude 而言，它卻完全看得懂。我是說，最近我開始錄很多語音筆記，我覺得對人類來說更不知所云，因為那只是我在胡言亂語和碎碎念，</p>
+<p><a href="https://www.youtube.com/watch?v=604T-74s3KE&amp;t=630s" target="_blank" rel="noopener noreferrer">10:30</a> 但這是我把腦中的點子掏出來、並在工作時予以成形的最有效率方式。所以對，這樣做的成效相當好。而你基本上可以從手機上完成這一切？我之前用過 Claude Design 和 Claude Code，但都是在我的桌機上。所以你真的可以從手機查看畫布，並看看現在的狀況？對，你可以。你不能在手機上直接編輯，但你實際上可以留言評論，所以你可以選取一個元素並指著它說：修這裡、改那裡。你可以在手機上使用互動式原型。這是相同的體驗。只是稍微簡化了一點，以適應你的手機螢幕。不過沒錯，你完全可以在你想要的任何平台上進行。</p>
+<h2 id="sec-3">章節 3：Anthropic 設計師如何在幾天內做出原型（11:01）</h2>
+<p><a href="https://www.youtube.com/watch?v=604T-74s3KE&amp;t=661s" target="_blank" rel="noopener noreferrer">11:01</a> 哇，好的。所以我猜通常的情況是，你匯出某些設計，發送給團隊，也許團隊裡的某個人把它做成原型，然後你們大家一起把玩體驗，看看感覺如何。是這樣運作的嗎？對，沒錯。所以在 Duet 上，我認為我們最後並沒有為這個確切的功能製作原型，但那個產品的整個打造方式，就是大家不斷提出想法，放進產品的內部測試版本裡，然後向大家徵求回饋，非常快速地迭代，並試著釐清：好，我們做了這個功能，但它並沒有完全滿足我們想要解決的需求，所以我們打算嘗試別的做法。</p>
+<p><a href="https://www.youtube.com/watch?v=604T-74s3KE&amp;t=693s" target="_blank" rel="noopener noreferrer">11:33</a> 或者我們做了這個功能，原本覺得會很酷，但根本沒人用，所以我們打算嘗試別的做法。依我的經驗，那是能非常快速產出好成果的最佳方式。你說沒人用，是指內部完全沒人在用嗎？就像內部完全沒有人採用？對，有時候你在產品裡做了一個特定功能，而且對它感到非常興奮。然後它可能是一個按鈕、一種不同的做事方式，或是一個不同的子畫面、設定或選項。接著你發現自己實際上根本沒在用，所以你就會說：好，酷，我們需要換個策略，或者這可能沒那麼有用。</p>
+<p><a href="https://www.youtube.com/watch?v=604T-74s3KE&amp;t=724s" target="_blank" rel="noopener noreferrer">12:04</a> 這蠻不可思議的，因為我也當了很久的 PM，而跟我合作過的所有設計師，我們以前常做設計衝刺，在進入程式碼之前試著做大量準備工作，因為寫程式以前很貴，但現在寫程式反而是最便宜的事。（笑聲）這是最便宜的事。所以現在就像，那你覺得你的工作變得更有趣了嗎？因為我敢說你肯定也當了很久的設計師。現在光是做原型之類的事，會比較有趣嗎，還是？我覺得蠻有趣的。我這個人有點特別。我有工程背景，所以我其實一直以來都這樣做，在加入 Anthropic 之前，我在一家叫 The Browser Company 的公司工作，我們在那裡做了一款叫 Arc 的瀏覽器，而我們的工作方式完全一模一樣。</p>
+<p><a href="https://www.youtube.com/watch?v=604T-74s3KE&amp;t=757s" target="_blank" rel="noopener noreferrer">12:37</a> 只是我們以前做原型要花更長的時間，但我們實際製作的原型數量是一樣多的。我們在推出 Arc 之前大概花了一年的時間做前期製作，因為我們有大量不同的想法，而每個想法都得花上幾週打造並觀察成效。而現在在 Anthropic，你大概一到兩天就能搞定。所以你真的大幅壓縮了打造產品的週期。你唯一沒有壓縮到的，是把它交到人們手中並了解他們是否會使用的週期，這確實需要一點時間。對，因為人類的注意力依然稀缺，就像它就是 沒錯，比以往任何時候都更加稀缺。</p>
+<h2 id="sec-4">章節 4：Claude Design 為何以獨立產品推出（13:06）</h2>
+<p><a href="https://www.youtube.com/watch?v=604T-74s3KE&amp;t=786s" target="_blank" rel="noopener noreferrer">13:06</a> 好，那我來問你一些可能比較尖銳的問題。我想 Claude Design 你們一開始是做成瀏覽器體驗，現在則成了 Claude Code 應用程式的一部分，我覺得這完全非常合理。嗯哼。跟我說說當初先以獨立體驗推出、之後再合併回主產品背後的考量吧。好啊，我覺得在一個獨立自足的空間裡迭代非常容易。當我們最初打造這個工具時，它只是我主要為了自己而做的一個內部原型，所以我當時心想，我當然不會大費周章把它做成核心產品的一部分。</p>
+<p><a href="https://www.youtube.com/watch?v=604T-74s3KE&amp;t=817s" target="_blank" rel="noopener noreferrer">13:37</a> 我只是想要一個能幫我做設計和簡報投影片的小工具，如果它對我真的很有用，那就算換到另一個獨立介面也沒關係，為了得到這些價值，我很樂意這麼做。而這種方式在相當長的一段時間裡效果非常好。它讓我們能在內部非常非常快速地迭代產品體驗，並讓我們能夠掌控整個架構體系。因此如果我們對於如何修改 harness、或如何改變呼叫模型的方式有想法，能讓我們交付更好的設計品質，那我們就去做，而且做起來超級超級容易，沒有任何人會阻礙我們。</p>
+<p><a href="https://www.youtube.com/watch?v=604T-74s3KE&amp;t=849s" target="_blank" rel="noopener noreferrer">14:09</a> 我們重建了整個基礎設施，像是對話如何運作、專案如何組織，以及產出物如何整理。我們還在 Anthropic 內部打造了第一個多人協作對話，這真的很不可思議，純粹是因為我們朝著能讓自身產品達到最佳狀態的方向前進，而不必擔心會踩到公司其他人的腳趾，或是破壞核心使用者體驗——也就是把 Claude 當作通用 agent 來協作，而不是用來做設計。所以那讓我們走了非常長遠的一段路。當我們開始逐一解決大家對 Claude Design 提出的最大問題時，隨著其他問題被消除，其中一個問題開始浮現上來。</p>
+<p><a href="https://www.youtube.com/watch?v=604T-74s3KE&amp;t=887s" target="_blank" rel="noopener noreferrer">14:47</a> 那就是很多人都在說：嘿，為什麼這是一個獨立的東西？為什麼我必須學習另一套工具？為什麼我必須待在不同的地方？為什麼這不能在我的手機上運作？因為 Claude Code 可以在我的手機上運作。為什麼我不能把 computer use 連接器和 Claude Design 的對話放在同一個對話裡？為什麼它們必須是分開的對話？所以在某個時刻，那成了我們最大的問題。我們就說：好，這太棒了。我們知道自己必須做什麼了。我們已經完成了所有廣泛的設計探索，這些都是當初身處完全獨立介面時才能實現的。現在我們可以說：好，我們掌握了產品配方，可以投入時間把它整合進我們大家整天都在使用的那個更精緻的介面裡。</p>
+<p><a href="https://www.youtube.com/watch?v=604T-74s3KE&amp;t=926s" target="_blank" rel="noopener noreferrer">15:26</a> 而在一個擁有更多使用者的較大產品中建構功能，需要做多得多的工作，因為你必須做個好公民。你不能到處放自己的按鈕。你不能隨意改變 harness 的運作方式等等這一切。但我們對自己的執行能力很有信心，也相信這會是件好事，因為我們之前花了這麼多時間在外部空間實現了產品市場契合度。而且我想很多使用者大概甚至都不是設計師，對吧？可能只是做簡報投影片或影片之類的人。沒錯，沒錯，比例相當平均。有很多人會說「我是做設計的，所以這是做設計更快的方式」。</p>
+<p><a href="https://www.youtube.com/watch?v=604T-74s3KE&amp;t=958s" target="_blank" rel="noopener noreferrer">15:58</a> 但你也有很多其他人會說「我其實根本不會用上一代的任何設計工具，但現在我會了」。所以有很多 PM，很多市場推廣人員。還有很多做簡報投影片的人，他們雖然會做投影片，但真的沒興趣花功夫去套用公司的設計系統。他們只是想專注在自己要表達的內容上。所以那裡頭有很多人通常不是設計師。我覺得 Claude Design 我最喜歡的功能之一是——我用過很多 AI 設計工具——在我要求它做某件事之後，它實際上會顯示一整頁的問題清單來釐清細節，這正是優秀設計師會做的事。</p>
+<p><a href="https://www.youtube.com/watch?v=604T-74s3KE&amp;t=993s" target="_blank" rel="noopener noreferrer">16:33</a> 但不知道為什麼其他工具就是不做。所以你做的這個東西真的很出色。對，我們以前對這點一直很謹慎，因為我覺得傳統產品設計的想法是「噢，不要增加摩擦」。但我們實際發現的是，對大家來說問題永遠不嫌多。大家就是非常喜歡這個設計。所以在獨立介面裡的預設體驗是，我們可能會問你大約八個問題。如果你想跳過也可以，但大家其實很喜歡提供那些回饋。而且透過被提問來回答，遠比一開始自己預先去想「好，設計師會問我什麼問題？」要容易得多。</p>
+<p><a href="https://www.youtube.com/watch?v=604T-74s3KE&amp;t=1024s" target="_blank" rel="noopener noreferrer">17:04</a> 還有一個我遇到的問題，你知道，我們剛才聊到直接更新程式碼比更新畫布快得多。舉例來說，我試著為自己做一個小健身 App，而我直接在程式碼裡到處新增功能。那你有什麼技巧，能在程式碼更新的同時保持畫布同步更新嗎？我的大招就是，當你想做設計時，直接叫 Claude 讀取程式碼，並從你目前的進度重新繪製出來。所以我不會保留那些長期維護的檔案。當我想設計新東西時，我只會說「Hey Claude，讀取程式碼庫的相關部分，在畫布上建立出來，然後從那裡開始設計」。</p>
+<p><a href="https://www.youtube.com/watch?v=604T-74s3KE&amp;t=1055s" target="_blank" rel="noopener noreferrer">17:35</a> 我很少會回頭打開那個檔案，長期維持它的更新。好，所以基本上就是叫 Claude 去更新並保持最新。對。沒錯。好，總結一下 Claude Design 這部分，我認為這其實是一個非常聰明的模式，就像你說的，先在你自己的專屬介面裡迭代並做出調整，最後再把它移回主介面。我想我在 Cowork 和 Chat 上也看過這種模式，對吧？也許某個時候 Duet 也會這樣。我認為問題往往出在大家沒有真正把它合併回主介面，或者只是一直往主介面硬塞越來越多東西。對。</p>
+<p><a href="https://www.youtube.com/watch?v=604T-74s3KE&amp;t=1087s" target="_blank" rel="noopener noreferrer">18:07</a> 沒錯。你們針對這些事情有很多原則規範嗎？因為雖然我不點名，但有些其他對話應用程式就是變得過度複雜。體驗就變得超級令人困惑。對，我想我們的一般原則是，我們盡量不會因為「噢，它們必須整合」就阻擋新功能。我們偶爾可以接受推出獨立運作的東西，但前提是如果它們受歡迎，你確實得把它們合併回來。而且我們認為這才是正確的做法。所以當我們說好，我們要把 Claude Design 帶回產品時，我想</p>
+<p><a href="https://www.youtube.com/watch?v=604T-74s3KE&amp;t=1120s" target="_blank" rel="noopener noreferrer">18:40</a> 產品設計團隊對此感到非常高興，因為大家覺得「噢，很顯然它們從一開始就應該是同一個東西」。但當你還得擔心並搞清楚它到底要如何融入生態系時，要從零到一推出一款產品會困難得多。對，那非常合情合理。</p>
+<h2 id="sec-5">章節 5：讓設計一看就像 AI 做的四個破綻（18:55）</h2>
+<p><a href="https://www.youtube.com/watch?v=604T-74s3KE&amp;t=1135s" target="_blank" rel="noopener noreferrer">18:55</a> 關於這個的最後一個問題。我不確定它現在是不是還會這樣，但 Opus 以前會在設計上加這些小側邊欄之類的東西，很有 Claude 式慣性（Claudisms）的那種東西。你們是怎麼向研究人員提供回饋，讓模型改掉這些毛病的？還是你們平常就是這樣做的？對，對，我們給了非常多回饋。他們知道這些問題，而且研究團隊正積極探討如何避免這些狀況。這源自於一個事實：當你要求 Claude 創作東西時，Claude 是在一個全新的上下文中運作，它在那裡非常努力思考，然後心想：天啊，使用者要我做一個 App。</p>
+<p><a href="https://www.youtube.com/watch?v=604T-74s3KE&amp;t=1165s" target="_blank" rel="noopener noreferrer">19:25</a> 我要發明出最出色的視覺風格。它應該要有襯線字體，要有米白色的背景，還要搭配橘色，卡片邊緣還要加上這些酷炫的邊條，因為在 Claude 的腦海中，它只做過這一次，對吧？所以它覺得這完全是原創的。因此在 prompt 撰寫上，我們發現真正非常有價值的一件事，就是直接告訴 Claude 它的失敗模式有哪些，以及它容易退化成什麼樣的模式。所以實際上在我們的 Claude Design prompt 裡，我們會寫「Hey Claude，對這個特定模型來說，你往往過度偏好這兩種字體</p>
+<p><a href="https://www.youtube.com/watch?v=604T-74s3KE&amp;t=1198s" target="_blank" rel="noopener noreferrer">19:58</a> 和這兩種顏色，所以除非使用者要求你使用，或者你認為這真的非常切合主題，否則不要使用它們」。而這通常確實有很大幫助，單純是因為模型根本不知道自己有哪些偏見。對，我自己也有一個「不要設計 slop」的 prompt，也試著去掉一堆這類東西。但要如何讓模型本身意識到這些東西？我想這應該是一個比較漫長的過程，對吧？你必須以特定方式訓練，或是進行後訓練來避免這些東西。對，我認為這是一個未決的問題，除了大家確實知情並且正在努力解決之外，我不能透露研究端正在進行的內容。但這是一個懸而未決的問題。我們深思過很多的一點是，它有一種特定的寫作風格。</p>
+<p><a href="https://www.youtube.com/watch?v=604T-74s3KE&amp;t=1232s" target="_blank" rel="noopener noreferrer">20:32</a> 有段時間表現沒那麼好，現在又變好了，但那就是一種特定的風格，對吧？因此當你要求 Claude 做設計時，Claude 應該嘗試從頭發明一套設計語言，還是應該堅持一套適用於所有場景的保守風格？我們真的不知道，但我會說的一點是，我覺得如果你善用 AI 來做設計，希望你就能讓那個問題變得無關緊要，因為你會跟 Claude 合作開發出非常適合你特定產品或特定品牌的風格識別，或者你會帶入現有的品牌指南，這樣你就不用擔心模型在毫無素材可依循時會表現出什麼樣的傾向。</p>
+<p><a href="https://www.youtube.com/watch?v=604T-74s3KE&amp;t=1267s" target="_blank" rel="noopener noreferrer">21:07</a> 對，這非常合理。我認為你的個人背景資訊和品牌脈絡，就是你能帶給新模型等工具的持久資產。對，沒錯。好的，老兄。我覺得最近有了 Opus 5.5 和 Sonnet，動態圖像和影片能力真的讓我大為驚豔。你們有專門針對這個進行訓練嗎，還是這在內部也是個驚喜？竟然這麼厲害？老實跟你說，我一直試著讓 Claude 做動態圖像已經很久了。我記得去年底的時候，我就試著讓 Claude 製作小短片、宣傳短片和動態產品示範之類的東西。</p>
+<p><a href="https://www.youtube.com/watch?v=604T-74s3KE&amp;t=1299s" target="_blank" rel="noopener noreferrer">21:39</a> 它當時勉強做得出來，但確實做得到。而且成果爛得搞笑。你看了一眼就會覺得，絕對沒有人會想看這個。這實在太糟糕了。但是在過去這一年裡，推出的每一個模型都變得更好了一點點、更好了一點點。到了某個時間點，它跨越了從「爛得搞笑」到「單純很爛」的門檻。然後又從「很爛」進步到「這還算可以」。而老實說，我認為那就是我們現在所處的階段。我們目前處在「這還算可以」的階段。這還稱不上驚人的動態設計作品，但如果你看它的發展軌跡，它只會變得越來越好。</p>
+<p><a href="https://www.youtube.com/watch?v=604T-74s3KE&amp;t=1331s" target="_blank" rel="noopener noreferrer">22:11</a> 所以對於未來幾代模型之後的時代，我感到非常興奮，希望到時我們會擁有非常非常擅長處理這些東西的模型。至於我們是否有直接針對這個進行訓練，我其實不太確定，但確實有很多例子顯示，只要這些模型的通用能力變得更強，就會順帶湧現出你根本沒真正預料到的能力，而動態正是其中之一。是啊，我想說到底這全都是程式碼，所以只要你寫程式更厲害，這些東西自然就水到渠成了。</p>
+<h2 id="sec-6">章節 6：示範：把任何試算表變成即時儀表板（22:36）</h2>
+<p><a href="https://www.youtube.com/watch?v=604T-74s3KE&amp;t=1356s" target="_blank" rel="noopener noreferrer">22:36</a> 但我覺得你為儀表板和動態圖像那些準備了一些相當厲害的示範。能展示給我們看一些嗎？好啊，好啊，我很樂意展示給你看。對，所以我們一直在全力推進，要把 Claude Artifacts 做得非常好。所以我們最近推出了新版本的 Claude Artifacts。我們實際上就是以 Claude Artifacts 為基礎，打造了我們全新的 Claude Slides 和 Claude Design。我們當時說，嘿，我們要讓這個平台變得無比強大，強大到我們能以它為基礎打造自己的設計與簡報工具，但其實任何人都可以在這個平台上創造任何東西。這是一個通用的程式建置平台。</p>
+<p><a href="https://www.youtube.com/watch?v=604T-74s3KE&amp;t=1387s" target="_blank" rel="noopener noreferrer">23:07</a> 而我們發現特別引人注目的應用之一，就是建立儀表板，對吧？我們內部這樣做大概已經有 6 到 8 個月了，基本上我們已經不再使用現成的解決方案來製作儀表板了。我們就只要請 Claude 從 MCP 抓取資料，然後寫出符合你想要追蹤之資料的任何程式碼。這裡就有一個例子。我不能抓取我們真實的產品指標，但我拿到了一份很棒且非常龐大的 CSV 資料，是關於紐約大都會運輸署（MTA）的每日搭乘量，然後我把它丟進了 Google 試算表（Google Sheets）。</p>
+<p><a href="https://www.youtube.com/watch?v=604T-74s3KE&amp;t=1418s" target="_blank" rel="noopener noreferrer">23:38</a> 接著我用了 MCP Google 試算表（Google Sheets）連接器將它轉換成一個儀表板。所以我做的就只是給 Claude 一個連結，並說：「嘿，用這個做一個儀表板。」基本上，我其實不知道自己想在這裡追蹤什麼，所以我只是說：「嘿，幫我做個儀表板之類的隨便什麼都好。」它就真的做出來了。而且它告訴我：「嘿，這些數字是你試算表的存檔副本，所以不會自行更新。」但既然它是放在 Google 雲端硬碟（Google Drive）上，我可以將它串接成即時讀取。而我也確實這麼做了，因為如果你是從 BigQuery 或 Amplitude 或任何其他這類真實的資料儲存系統抓取資料的話，你也會這樣做。</p>
+<p><a href="https://www.youtube.com/watch?v=604T-74s3KE&amp;t=1448s" target="_blank" rel="noopener noreferrer">24:08</a> 所以我說：「好啊，把它串接成即時讀取。」它就更新了 artifact，現在當我打開它時，我可以重新載入，它就會直接從 Google 試算表（Google Sheets）重新載入資料。所以我可以直接去修改這些資料，它就會即時更新。我現在不打算這麼做，因為我對這份資料還不夠了解。但你可以看到我們有數字，也有圖表。而且因為這全都是程式碼，我可以在這裡要求 Claude 做任何我想做的事。我可以讓它製作客製化的視覺化圖表。我可以讓它以非常有趣的方式來切入分析資料。我可以讓它用很漂亮的方式呈現內容，不過這只是一種非常非常基本檢視資料的方式。</p>
+<p><a href="https://www.youtube.com/watch?v=604T-74s3KE&amp;t=1483s" target="_blank" rel="noopener noreferrer">24:43</a> 嗯嗯。你也可以讓 Claude 幫你寫出這個程式碼，但我們只是為此打造了一個好用的開箱即用小工具，裡面附帶了一些很棒的好東西。像是你可以進入這個來源模式，指向某個特定的數字，就能確切看到 Claude 是從哪裡取得這些資料的。你可以查看它用來從 MCP 抓取資料的實際程式碼，這相當酷。在這種情況下，它不是 SQL，因為我們是從 Google MCP 抓取的，所以它實際上只是在寫 JavaScript，但如果是我們真實在用的情境，就會是 SQL。不過這很棒，因為如果你真的懂怎麼做資料科學——雖然我並不是這方面的超級專家——</p>
+<p><a href="https://www.youtube.com/watch?v=604T-74s3KE&amp;t=1515s" target="_blank" rel="noopener noreferrer">25:15</a> 你就可以去確認這些數字確實來自你原本預期的來源。那你要如何觸發這個儀表板？就只要說「嘿，做個資料儀表板」，它就會自動觸發嗎？大多數人的做法就是說：「嘿，用這個做個儀表板」，Claude 就會去做。我相信你也可以從 artifact 窗格來操作。對。所以你可以進到這裡點選「新增儀表板」，用那種方式來做。我其實有讓它為我的 YouTube 內容做一個儀表板，我就給出我的公開頻道，然後說：「嘿，你能做個儀表板嗎？給我一些關於我頻道的深入分析洞察，順便也研究一批製作類似內容的其他頻道。」</p>
+<p><a href="https://www.youtube.com/watch?v=604T-74s3KE&amp;t=1546s" target="_blank" rel="noopener noreferrer">25:46</a> 結果真的很棒，實際上非常有洞見。我有點被震撼到了。其實如果你不確切指定想要什麼可能反而更好，因為這樣它會帶來非常驚喜的收穫。沒錯，完全就是這樣。而且很酷的是，因為這全都屬於同一套 Claude 生態系統的一部分，它可以用非常多種不同的方式抓取資料。你可以從檔案系統抓取，可以透過程式碼抓取，也可以透過 MCP 抓取。你甚至可能可以架構一套系統，設定排程任務利用 computer use 進入 YouTube 後台儀表板，手動抓出數字再放進去。這……你在這裡能做的事情多到相當驚人。</p>
+<h2 id="sec-7">章節 7：示範：把儀表板做成 Claude Motion 影片（26:17）</h2>
+<p><a href="https://www.youtube.com/watch?v=604T-74s3KE&amp;t=1578s" target="_blank" rel="noopener noreferrer">26:18</a> 我覺得在會議上分享儀表板是不錯，但我認為更酷的應該是分享這些數據統計的宣傳短片，對吧？所以像這樣要怎麼轉換？是啊。當然。對，我是說，所以我們在推出這個的同時，也推出了 Claude Motion，老實說它只是針對大家已經在模型中發現的能力所做的一個輕量封裝。我們看到外部的使用者使用 Opus 5.5 製作了很酷的宣傳短片、資料視覺化和解說影片，於是我們就說，好，我們就給他們一個稍微好一點的工具，讓大家知道可以做到這件事，並且加入一些 prompting 和一些 UI，讓它變得稍微容易一點。</p>
+<p><a href="https://www.youtube.com/watch?v=604T-74s3KE&amp;t=1611s" target="_blank" rel="noopener noreferrer">26:51</a> 這就是一個例子，是我昨晚一直在玩的。這來自同一個資料集，而且你會看到這實際上是一長串的對話串。我第一次嘗試時其實並沒有得到我想要的結果。我們可以看一下我為了修正它而做了哪些步驟。但我一開始是說：「嘿，使用動態 artifact 結合這個儀表板的資料來講個故事。」我給了它儀表板的連結。我請它以動畫形式給我一份分鏡腳本，也就是靜態草圖，同時也製作一個 artifact 來展示幾種具有代表性且風格各異的視覺風格，這也就是我稍早提到的那種工作流程。</p>
+<p><a href="https://www.youtube.com/watch?v=604T-74s3KE&amp;t=1641s" target="_blank" rel="noopener noreferrer">27:21</a> 最後，我貼入了一些參考靈感片段供 Claude 使用。而我得到的成果是，我們來看看。我得到了這個分鏡腳本，只是一個簡單的動畫，在這個階段完全是靜態的，因為我是這樣要求 Claude 的。這樣做不需要花費太多 token，但它大致向我展示了 Claude 打算鎖定的方向。我也請它針對視覺風格嘗試幾種不同的方向。所以我們有了 A 方案，也就是這些很酷的彩色線條。我們有了 B 方案，也就是地鐵卡（MetroCard），以及 C 方案的倒數計時。</p>
+<p><a href="https://www.youtube.com/watch?v=604T-74s3KE&amp;t=1675s" target="_blank" rel="noopener noreferrer">27:55</a> 我當下立刻就覺得：「噢，很明顯就是 A 了。」「請做 A。」於是它就照著去做了。接著我從那裡得到了好幾個不同的版本。而我想最終版就是我現在要放給你看的這個。</p>
+<p><a href="https://www.youtube.com/watch?v=604T-74s3KE&amp;t=1695s" target="_blank" rel="noopener noreferrer">28:15</a> 所以它會將資料視覺化，但會以一種很俐落且具風格感的方式來呈現人們的通勤移動方式。這裡面有許多不同的區段。你可以看到自 2020 年以來的變化。也可以看到搭乘量方面的復甦歷程。我們用這種線條主題做了各種很棒的效果。像是我們會繪製長條圖之類的東西。最後產出的成果我自己非常喜歡。但實際上我花了相當長的時間才走到這一步。就像我說的，我認為我們目前的階段是動畫不算差，但也稱不上絕佳，需要反覆推敲調整才能達到令人滿意的水準。</p>
+<p><a href="https://www.youtube.com/watch?v=604T-74s3KE&amp;t=1733s" target="_blank" rel="noopener noreferrer">28:53</a> 所以我在此下了很大功夫，試圖讓它看起來很棒。所以我做的一件事——這也是目前模型稍微存在的缺點——就是 Claude 經常在製作動畫時，會讓螢幕上有一堆東西同時改變，因為 Claude，身為機器，當然可以同時關注不同地方發生的許多事情。它可以一次讀取龐大的文字量，而且它還沒有完全內化一個概念：身為人類，我們有眼睛，有時候反應是稍微慢一點的。我們一次其實只能真正看清一件正在發生的事。因此我常常會對 Claude 下提示說：「我們需要一些時間來消化內容。我們的焦點一次只能放在一個地方。</p>
+<p><a href="https://www.youtube.com/watch?v=604T-74s3KE&amp;t=1764s" target="_blank" rel="noopener noreferrer">29:24</a> 我們讀不了那麼快。」所以在製作動畫時，你必須非常認真思考：如果我在螢幕上放了一些文字，在展示下一件事發生之前，我是否留了足夠的時間讓人閱讀？而且他們的視線在下一件事發生時，是否會在正確的位置看到它？雖然有改善了一點，但我還是給了它很多回饋，對吧？在某個階段我對 Claude 說：「嘿，這感覺就像靜態簡報投影片。加點動態感。加上一條我們一直跟著走的線。」接著我其實腦中有了一堆點子，在走去吃晚餐的路上，我開啟了語音模式，把我對它哪裡行不通的一堆想法一股腦全說了出來。</p>
+<p><a href="https://www.youtube.com/watch?v=604T-74s3KE&amp;t=1799s" target="_blank" rel="noopener noreferrer">29:59</a> 換一個不同的點子，像是我們選了幾種不同的顏色，讓一條線從特定的一點出發。所以我在腦海中構想我想要的畫面，並盡力把所有想法滔滔不絕倒出來，告訴 Claude 該怎麼做。還算有用。我多試了幾次，但最後我們終於達到了感覺相當不錯的狀態，準備進行最後的微調。是啊。那時我使用了我們的留言工具，它可以讓你在影片的特定時間點新增留言，在畫布的特定位置上留言，這非常棒，因為這樣一來每當我看到有文字重疊時，我不用每一次都說，</p>
+<p><a href="https://www.youtube.com/watch?v=604T-74s3KE&amp;t=1833s" target="_blank" rel="noopener noreferrer">30:33</a> 我只要點擊那裡並說「這段文字重疊了」，而不用說「在 17 秒處的左上角，這段文字跟這段文字重疊」，那樣做非常耗時。我只要指出來，告訴它我想要什麼，然後跟 Claude 說：「嘿，我加了一些留言，請處理我的留言」，它就會去處理。噢，我都不知道那個動態功能居然有留言功能。對，我們在每一種 artifact 上都有留言功能。其中很多只是在文字內行內留言，但對於某些像這種特別的 artifact，你可以留言。我們改寫了留言的行為，讓你可以在影片中的特定時間點留言，甚至可以框選某個東西並說像是「把這個變藍色」之類的。</p>
+<p><a href="https://www.youtube.com/watch?v=604T-74s3KE&amp;t=1870s" target="_blank" rel="noopener noreferrer">31:10</a> （笑聲）好。你有……我是說，你可能不常製作動態圖像，但在經歷了所有這些迭代過程之後——因為我也必須跟它一起迭代。</p>
+<h2 id="sec-8">章節 8：AI 無法判斷品味時，如何測試設計 skill（31:11）</h2>
+<p><a href="https://www.youtube.com/watch?v=604T-74s3KE&amp;t=1877s" target="_blank" rel="noopener noreferrer">31:17</a> 必須有人在迴圈中（human-in-the-loop）協作。這不是單次（one-shot）就能完成的。沒錯。在經歷這個過程之後，你有建立某種 skill 之類的東西，讓它像是說：「嘿，下次我做動態圖像時，只要記住所有這些東西」嗎？有。我有建立一個專為 Anthropic 內部宣傳短片量身打造的 skill。所以就像是想像我們為新功能發布的那種影片，這有點像是嘗試做出那樣的影片。實際上我製作它的方式，是把 Google 雲端硬碟（Google Drive）裡的一堆這類影片找出來，然後說：「嘿 Claude，分析這些影片，觀察畫面影格，看看每個環節之間停頓了多久，然後把這些全部記錄下來。」</p>
+<p><a href="https://www.youtube.com/watch?v=604T-74s3KE&amp;t=1908s" target="_blank" rel="noopener noreferrer">31:48</a> 而且它做得相當不錯。這在內部其實是一個相當受歡迎的 skill，大家隨時都在用它來為某個點子炒熱氣氛。你進到 Slack 就會看到大家張貼看起來非常精緻、製作精良的影片，但實際上任何人的蠢點子都能以那種形式呈現。我不知道這樣是好是壞，但確實挺有趣的。這就有點像現在每當我在網路上推出新的 skill 或任何東西時，我總是會用 Claude 做一段小小的宣傳短片。所以我想你們內部大概也是這樣。像是有人做出某個原型，就會順便附上一段宣傳短片。</p>
+<p><a href="https://www.youtube.com/watch?v=604T-74s3KE&amp;t=1939s" target="_blank" rel="noopener noreferrer">32:19</a> 沒錯。這就是那種我們以前絕不會去做的事情之一。我對 After Effects 一竅不通，所以對我來說，我就像是：「天啊，這是我以前從未有過、現在卻有了的能力。」我有點體會到當初 Claude Code 出現時，那些不會寫程式的人是什麼感覺了，我現在就像是：「天啊，我擁有了這項新能力。」「根據這段對話，你能去更新那個 skill 嗎？」對吧？但問題在於，這樣會讓 skill 過度配適（overfit）到我當下正在進行的任何對話上。所以你會等到累積了四、五次對話之後才去更新，還是你對這方面有什麼建議訣竅？我想說的是，我在製作這個 skill 和更新這個 skill 時所做的事，是我會請 Claude 來更新這個 skill。</p>
+<p><a href="https://www.youtube.com/watch?v=604T-74s3KE&amp;t=1974s" target="_blank" rel="noopener noreferrer">32:54</a> 我實際上根本沒有讀過它。也許我當初應該讀一下的。但我基本上就是說，好吧 Claude，我給了 Claude 一個評測（eval），我說：「嘿，想出你在 Claude.ai 中能想到的最無聊功能，並為它們製作宣傳短片。」所以每次我對該 skill 進行修改時，我就會說：「嘿 Claude，啟動幾個 Claude Code 工作階段，除了這個 skill 和類似這個 prompt 之外，不要告訴它們任何事，就像是『為模型選擇器之類的東西製作一段宣傳短片』。」然後我會檢視產出成果，並判斷：「噢，我看得出這裡面有沒有放對內容。」</p>
+<p><a href="https://www.youtube.com/watch?v=604T-74s3KE&amp;t=2004s" target="_blank" rel="noopener noreferrer">33:24</a> 所以這是一種非常快速的方法，幾乎就像是一種臨時的評測（eval）。但就模型過度執著於你交代給它的特定事情這點而言，我認為那只會是隨著模型能力提升而自然變好的問題之一。這是個判斷力的問題。這有點像是一種懂得察言觀色的能力。屬於那種很模糊、很難透過 prompt 解決的事情，但最終我們某天一覺醒來它就已經被修好了。當你說你給它做評測（eval），你的意思是像你親自查看結果，還是你有個評審機制之類的？對。對，我是說像這類事情，我認為設法為好的動態設計寫一個評測（eval），會比直接看幾個範例還要費工。</p>
+<p><a href="https://www.youtube.com/watch?v=604T-74s3KE&amp;t=2037s" target="_blank" rel="noopener noreferrer">33:57</a> 懂了。你有什麼訣竅嗎？因為我也覺得我的 skills 有一堆評測（eval），而且很多都是是非題型的評測（eval），因為據我的理解，那樣比給 1 到 5 分的分數還要好，之類的，因為 Claude 其實不太清楚 4 分跟 5 分的差別在哪。你對這類事情有什麼建議或訣竅嗎？對，我是說，絕對非常贊同是非題遠比 1 到 5 分的評分標準好得多，就像你評估員工一樣，或是在面試評估某人時，如果你想要打 1 到 5 分，你就必須說明 5 分長什麼樣子。4 分長什麼樣子。這裡是 3 分的範例。</p>
+<p><a href="https://www.youtube.com/watch?v=604T-74s3KE&amp;t=2068s" target="_blank" rel="noopener noreferrer">34:28</a> 如果你拿 2 分，缺少了什麼。而且你確實可以這麼做。我是說，這其實就歸結為成為一個良好的溝通者，做的事情就跟你會做的一樣，如果你是人資部門的一員，正試圖設計出一套非常優秀的員工績效考核系統。就針對這點非常深入地思考，並且非常清楚地傳達出來。至於設計方面的評測（eval），老實說，做設計評測就是非常困難。我們嘗試過很多次，問題在於如果你假設模型沒有頂尖的品味，那你就不能用模型來主觀評定某個東西是否具備好的設計品質。</p>
+<p><a href="https://www.youtube.com/watch?v=604T-74s3KE&amp;t=2104s" target="_blank" rel="noopener noreferrer">35:04</a> 所以在評測（eval）方面你能做的並不多，除了非常基礎的事情之外，像是文字有沒有重疊，以及我們能否確保如果你給它 10 個 prompt，它們不會全部都是同一種字體和同一種顏色？所以我們會評測（eval）那類事情，但要更深入探討什麼是好設計、什麼是好動態就相當困難了。懂了。所以就是需要仰賴最傳統的人類肉眼親自審視。（笑聲）對，我認為那就是我們經常做的大事：閱讀對話紀錄、檢視產出成果，然後持續迭代。</p>
+<h2 id="sec-9">章節 9：AI 有一天會有好品味嗎？（35:32）</h2>
+<p><a href="https://www.youtube.com/watch?v=604T-74s3KE&amp;t=2132s" target="_blank" rel="noopener noreferrer">35:32</a> 很高興你提到了「品味」這個詞，因為所有設計師都在談品味，每個人都在談品味。對此你有什麼獨到見解？你認為品味究竟是什麼？你覺得 AI 最終會變得具備好品味，讓品味不再是人類專屬的事物嗎？我覺得這是那種哲學層面的問題，跟「什麼是藝術」並列，對吧？什麼是品味？我認為你可以主張品味是人類與生俱來的特質，就像你 大概也可以主張藝術是人類與生俱來的東西，因為你試圖表達關於人類境況的某些感受。</p>
+<p><a href="https://www.youtube.com/watch?v=604T-74s3KE&amp;t=2162s" target="_blank" rel="noopener noreferrer">36:02</a> 我當然認為現今這些 AI 工具常見的失敗模式是，你要求它們產出某個東西，它們產出來了，然後你心想：噢，那是 AI slop。而且我認為這種情況大概會減少。模型在產出更多樣化的輸出上會變得更好。我現在走在紐約市，ChatGPT 生成的貝果熟食店廣告數量簡直是隨處可見。同樣的字體、完全相同的版面配置、同樣瘋狂的那些套路。你肯定看過。我設想模型在輸出的多樣性方面會進步非常多。我傾向於認為這其中有一種無形且人類獨有的特質，當</p>
+<p><a href="https://www.youtube.com/watch?v=604T-74s3KE&amp;t=2195s" target="_blank" rel="noopener noreferrer">36:35</a> 當某人確實有什麼非常想說、非常想傳達，且為某件事感到無比自豪時，這會讓我們產生共鳴，那種感受總會以某種方式傳遞出來，但這可能跟我們今天純粹從視覺潤飾和精緻度來看待品味的方式有所不同。對，我認為品味會變得像是一件個人化的事。我認為模型在整體品味上會變得很好，但對於什麼是好，你的品味可能跟我的品味不一樣，對吧？所以 沒錯。而且大概會變得更加關乎真實性。也許那樣貌就像某種帶有一點手寫感的事物，就像 Claude 相當擅長寫作那樣。而且老實說，我現在每當在電子郵件裡看到錯字，反而更看重它，因為那就像是證明（笑聲）背後有某種「工作量證明」。</p>
+<p><a href="https://www.youtube.com/watch?v=604T-74s3KE&amp;t=2232s" target="_blank" rel="noopener noreferrer">37:12</a> 我知道真的有人花時間把它打出來。我敢肯定我們會為動畫和設計之類的東西找到視覺上的同等對應。而且我們會繼續非常珍視它們。對，你得用全小寫、不加標點符號來打所有的近況更新（笑聲），證明你是個真正的人類。這是個真正的人類在打字。好的，最後一個關於你平常喜歡如何與 Claude 協作的問題。現在你們有 Claude Code、有 Claude，顯然有些工程師會用一個協調者（orchestrator）來調度，我不知道，100 個不同的對話串。但我真的很好奇一位設計師是怎麼做的。</p>
+<p><a href="https://www.youtube.com/watch?v=604T-74s3KE&amp;t=2263s" target="_blank" rel="noopener noreferrer">37:43</a> 還有你比較常用 Duet，還是仍然用一般的 Claude？我用一般的 Claude，純粹是因為它能存取我們的程式碼庫，而且我在我們的程式碼庫裡做了很多設計。我對 Duet 的獨到見解是，我希望我們的整個產品在某個時間點都能像那樣運作。對於我最大的設計專案，我通常實際上就只在 Claude Code 裡開一個對話串，並且信任 Claude Code 去啟動各個 sub-agent 來執行不同的任務。舉例來說，當我們在設計新版本的 Claude Design 時，我有一個 Claude Code 對話串，裡面有一堆設計 artifact。</p>
+<p><a href="https://www.youtube.com/watch?v=604T-74s3KE&amp;t=2294s" target="_blank" rel="noopener noreferrer">38:14</a> 我想最後我在那單一聊天中累積了大概 36 個不同的 artifact，那其實不算太理想，但很棒的是它們都共享上下文，我從來不用擔心它們到底知不知道自己在做什麼。而且我發現 Claude 已經變得非常非常擅長妥善處理非常長的對話串，並且在內部搞清楚如何管理自己的記憶、如何管理自己的上下文和它自己的 sub-agents。所以我通常要嘛為單次任務開一個極小的對話串，要嘛為整整一個月開一個超長對話串。</p>
+<p><a href="https://www.youtube.com/watch?v=604T-74s3KE&amp;t=2324s" target="_blank" rel="noopener noreferrer">38:44</a> 對，我也是這麼做的。我有點傾向把每個對話串視為擁有各自的工作，或像是各自的專案。而且我大概沒辦法同時積極管理超過五個左右的對話串。那太多了。我是說，我們內部確實大量使用 Claude Tag。我相信之前有人跟你說過這點，但我們對 Claude Tag 非常著迷，我也不例外。而 Claude Tag 最棒的地方在於，它就在你本來就會去查看的同一個空間裡，對吧？就像我本來就必須查看其他人傳來的訊息，所以我也會在同一個空間裡去查看我的那些 Claude。而且我就把 Claude Tag 當作一個人。</p>
+<p><a href="https://www.youtube.com/watch?v=604T-74s3KE&amp;t=2356s" target="_blank" rel="noopener noreferrer">39:16</a> 我不會把它當作一堆不同的對話串。我完全不擔心上下文。我就預設 Claude Tag 會記得我們每一次互動的記憶，以及它跟公司裡其他任何人每次互動的記憶。顯然它實際上並沒有那麼誇張，但已經足夠接近，讓我差不多可以直接說：「嘿 Claude，你記得我們上週做的那個東西嗎？」「那個，我們得對它做這些修改。」「順便問一下，它在哪裡？」「你能調出來嗎？」而且通常都行得通。對，我認為 Claude Tag 大概是目前最棒的人類與 agent、多個人類與多個 agent 的協作體驗，對吧？對，那很合理。對了兄弟，我得問你個應景的問題。</p>
+<p><a href="https://www.youtube.com/watch?v=604T-74s3KE&amp;t=2386s" target="_blank" rel="noopener noreferrer">39:46</a> 看起來 Arc 即將被停止維護了。你曾是最初的設計師之一，對吧？那你感覺如何？我想作為設計師、PM，有時我們引以為傲的心血會被淘汰之類的。你對此有何感受？你怎麼看待這件事？對。我是說，我認為 The Browser Company 留下的持久影響，首先是 Dia 相當不錯。其次，我認為我們掀起了這波瀏覽器創新的浪潮。在公司創立初期我們總是會說這點：我會拿 Chrome 在 2008 年推出時的螢幕截圖給大家看，</p>
+<p><a href="https://www.youtube.com/watch?v=604T-74s3KE&amp;t=2417s" target="_blank" rel="noopener noreferrer">40:17</a> 然後我會問：這跟你們現在用的 Chrome 有什麼不同？答案幾乎是：沒什麼不同。顏色不一樣，就這樣。但實際的 UI 是……而現在 Chrome 其實跟六年前大不相同了，這真的很不可思議。再次強調，我不會說這完全是 The Browser Company 的功勞，但我很高興我們現在生活在一個充滿大量瀏覽器創新的世界。許多人都在打造自己版本的瀏覽器。而且我很期待很快會看到什麼新成果。對，那大概是一個非常好的結果，對吧？即便你的產品可能被淘汰，但你引入了一種現在主流產品都在採用的新常態。</p>
+<p><a href="https://www.youtube.com/watch?v=604T-74s3KE&amp;t=2452s" target="_blank" rel="noopener noreferrer">40:52</a> 所以，我認為那很了不起。對。每隔一陣子，我請 Claude 設計東西時，不知為何它就會說：「噢，這是一個 Arc 風格的側邊欄」，我心想：哇，你現在居然會叫它 Arc 風格側邊欄，太神奇了。所以，有時候會這樣。那太好笑了。那太好笑了。Claude 還老是說像「噢，做這個大概要花兩天」，然後大概 5 分鐘就搞定了。（笑聲）對，我知道。我有點過意不去。我就心想，Claude 會說「這大概要花 6 週的時間」，而我會想「雖然很不想打擊你，Claude，但我們接下來 20 分鐘就要一起把這個做完」。</p>
+<p><a href="https://www.youtube.com/watch?v=604T-74s3KE&amp;t=2484s" target="_blank" rel="noopener noreferrer">41:24</a> 「所以，你最好趕快動工。」我不知道。我不知道為什麼會這樣。大概是模型的某種怪癖，但聽到它這麼說滿好笑的。對，會是……對。太棒了。這是一場棒極了的對話。感謝你向我展示這一切，我希望這集能啟發更多人，無論是不是設計師，都能創造出更多具有高工藝水準的作品。大家可以在網路上哪裡找到你？主要在我的網站。是 nateparrott.com。Parrot 就像鸚鵡那個字，但結尾有兩個 T。我也用同一個名字在 Twitter 上，那些就是我最主要沉迷的嗜好。酷。那就繼續加油吧。</p>
+<p><a href="https://www.youtube.com/watch?v=604T-74s3KE&amp;t=2515s" target="_blank" rel="noopener noreferrer">41:55</a> 我非常期待看到你接下來推出或設計的作品。謝謝。跟你聊得很愉快。</p>
+</article></main>
+<footer>
+<p>本頁為非官方翻譯，由 AI 模型翻譯，依 YouTube 機器字幕整理，未經人工校稿、僅少數存疑句由 AI 聆聽原音核對；影片版權屬原權利人。另見：<a href="index.html">深度導讀</a>、<a href="player.html">字幕同步播放器</a>。</p>
+</footer>
+</div>
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="圖片放大檢視"><button type="button" aria-label="關閉放大檢視">關閉（Esc）</button><img src="" alt=""></div>
+<script>
+(function(){
+  var box=document.getElementById('lightbox'), big=box.querySelector('img'), btn=box.querySelector('button'), last=null;
+  function open(img){last=img;big.src=img.currentSrc||img.src;big.alt=img.alt;box.classList.add('is-open');btn.focus();}
+  function close(){box.classList.remove('is-open');big.removeAttribute('src');if(last){last.focus();}}
+  document.querySelectorAll('figure img').forEach(function(img){
+    img.addEventListener('click',function(){open(img);});
+    img.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();open(img);}});
+  });
+  box.addEventListener('click',function(e){if(e.target===box||e.target===btn){close();}});
+  document.addEventListener('keydown',function(e){
+    if(!box.classList.contains('is-open'))return;
+    if(e.key==='Escape'){close();}
+    if(e.key==='Tab'){e.preventDefault();btn.focus();}
+  });
+})();
+</script>
+</body>
+</html>

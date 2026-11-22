@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 720" width="540" height="720" role="img" font-family="PingFang TC, Noto Sans TC, Microsoft JhengHei, sans-serif">
+<title>做原型變快了，看人用不用沒有變快</title>
+<desc>講者說法的概念示意，長度不代表實際比例：Arc 時期做原型每個要幾週，現在一到兩天；把東西交給人用、看會不會用的那一段沒有變短。</desc>
+<style data-anim="1">.g{transform-box:fill-box;transform-origin:0 50%;animation-duration:10s;animation-iteration-count:1;animation-fill-mode:both;animation-timing-function:ease-in-out}.g1{animation-name:g1}.g2{animation-name:g2}.g3{animation-name:g3}.g4{animation-name:g4}@keyframes g1{0%,12%{transform:scaleX(1)}22%{transform:scaleX(0.001)}40%,100%{transform:scaleX(1)}}@keyframes g2{0%,12%{transform:scaleX(1)}22%,40%{transform:scaleX(0.001)}55%,100%{transform:scaleX(1)}}@keyframes g3{0%,12%{transform:scaleX(1)}22%,55%{transform:scaleX(0.001)}62%,100%{transform:scaleX(1)}}@keyframes g4{0%,12%{transform:scaleX(1)}22%,62%{transform:scaleX(0.001)}77%,100%{transform:scaleX(1)}}@media (prefers-reduced-motion: reduce){*{animation:none!important}}</style>
+<defs data-anim="1"><mask id="m-b1" maskUnits="userSpaceOnUse" x="0" y="0" width="540" height="720"><rect x="38" y="300" width="304" height="48" fill="#5c5c5c"/><rect class="g g1" x="38" y="300" width="304" height="48" fill="#fff"/></mask><mask id="m-b2" maskUnits="userSpaceOnUse" x="0" y="0" width="540" height="720"><rect x="340" y="300" width="162" height="48" fill="#5c5c5c"/><rect class="g g2" x="340" y="300" width="162" height="48" fill="#fff"/></mask><mask id="m-b3" maskUnits="userSpaceOnUse" x="0" y="0" width="540" height="720"><rect x="38" y="554" width="69" height="48" fill="#5c5c5c"/><rect class="g g3" x="38" y="554" width="69" height="48" fill="#fff"/></mask><mask id="m-b4" maskUnits="userSpaceOnUse" x="0" y="0" width="540" height="720"><rect x="105" y="554" width="162" height="48" fill="#5c5c5c"/><rect class="g g4" x="105" y="554" width="162" height="48" fill="#fff"/></mask></defs>
+<rect width="540" height="720" fill="#fbfaf7"/>
+<text x="24" y="70" font-size="28" fill="#1d2433" font-weight="bold" text-anchor="start">做原型變快了，看人用不用沒有變快</text>
+<rect x="24" y="100" width="130" height="44" rx="22.0" fill="none" stroke="#d9773a" stroke-width="2"/>
+<text x="89.0" y="130.64" font-size="24" fill="#d9773a" font-weight="bold" text-anchor="middle">講者說法</text>
+<text x="24" y="236" font-size="28" fill="#1d2433" font-weight="bold" text-anchor="start">Arc 時期</text>
+<text x="40" y="286" font-size="24" fill="#5b6170" text-anchor="start">做原型：每個幾週</text>
+<rect mask="url(#m-b1)" x="40" y="302" width="300" height="44" rx="4" fill="#4a6fa5"/><rect mask="url(#m-b2)" x="342" y="302" width="158" height="44" rx="4" fill="#b9a27a"/>
+<text x="500" y="388" font-size="24" fill="#5b6170" text-anchor="end">交給人用、看會不會用</text>
+<text x="24" y="490" font-size="28" fill="#1d2433" font-weight="bold" text-anchor="start">現在</text>
+<text x="40" y="540" font-size="24" fill="#5b6170" text-anchor="start">做原型：一到兩天</text>
+<rect mask="url(#m-b3)" x="40" y="556" width="65" height="44" rx="4" fill="#4a6fa5"/><rect mask="url(#m-b4)" x="107" y="556" width="158" height="44" rx="4" fill="#b9a27a"/>
+<text x="107" y="642" font-size="24" fill="#1d2433" font-weight="bold" text-anchor="start">這一段沒有變短</text>
+</svg>

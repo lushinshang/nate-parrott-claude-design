@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 960" width="540" height="960" role="img" font-family="PingFang TC, Noto Sans TC, Microsoft JhengHei, sans-serif">
+<title>三案風格</title>
+<desc>依影片畫面重繪的示意：Claude 給的三種動畫風格。A 彩色線條是幾條平行的彩色線帶轉彎；B 地鐵卡是一張傾斜的卡片；C 倒數計時是一排方塊進度條。講者選了 A。不含原畫面的數字、標誌與圖樣。</desc>
+<rect width="540" height="960" fill="#fbfaf7"/>
+<text x="30" y="60" font-size="34" fill="#1d2433" font-weight="bold" text-anchor="start">三案風格</text>
+<rect x="30" y="96" width="480" height="170" rx="10" fill="#f1e6d2" stroke="#d9773a" stroke-width="4"/>
+<path d="M44 133.4 H326.40000000000003 Q410.40000000000003 133.4 410.40000000000003 217.4 V252" fill="none" stroke="#d94b3d" stroke-width="7" stroke-linecap="butt"/>
+<path d="M44 142.4 H326.40000000000003 Q401.40000000000003 142.4 401.40000000000003 217.4 V252" fill="none" stroke="#e9a23b" stroke-width="7" stroke-linecap="butt"/>
+<path d="M44 151.4 H326.40000000000003 Q392.40000000000003 151.4 392.40000000000003 217.4 V252" fill="none" stroke="#f2d04a" stroke-width="7" stroke-linecap="butt"/>
+<path d="M44 160.4 H326.40000000000003 Q383.40000000000003 160.4 383.40000000000003 217.4 V252" fill="none" stroke="#3f9d5a" stroke-width="7" stroke-linecap="butt"/>
+<path d="M44 169.4 H326.40000000000003 Q374.40000000000003 169.4 374.40000000000003 217.4 V252" fill="none" stroke="#3b74c4" stroke-width="7" stroke-linecap="butt"/>
+<path d="M44 178.4 H326.40000000000003 Q365.40000000000003 178.4 365.40000000000003 217.4 V252" fill="none" stroke="#8a8f99" stroke-width="7" stroke-linecap="butt"/>
+<rect x="30" y="400" width="480" height="170" rx="10" fill="#22252b"/>
+<g transform="rotate(-5 270.0 485.0)"><rect x="121.19999999999999" y="439.1" width="297.6" height="71.39999999999999" rx="6" fill="#e2b43c"/><rect x="156.91199999999998" y="461.94800000000004" width="178.56" height="21.419999999999998" rx="4" fill="#2f5fa8"/></g>
+<rect x="121.19999999999999" y="527.5" width="252.96" height="17.0" rx="3" fill="#e2b43c"/>
+<rect x="30" y="650" width="480" height="170" rx="10" fill="#14161a"/>
+<rect x="78.0" y="687.4" width="54.4" height="51.0" rx="3" fill="none" stroke="#e9a23b" stroke-width="4"/>
+<rect x="148.4" y="687.4" width="54.4" height="51.0" rx="3" fill="none" stroke="#e9a23b" stroke-width="4"/>
+<rect x="218.8" y="687.4" width="54.4" height="51.0" rx="3" fill="none" stroke="#e9a23b" stroke-width="4"/>
+<rect x="289.2" y="687.4" width="54.4" height="51.0" rx="3" fill="none" stroke="#e9a23b" stroke-width="4"/>
+<rect x="78.0" y="765.6" width="25.0" height="17.0" fill="#e9a23b" opacity="1"/>
+<rect x="110.0" y="765.6" width="25.0" height="17.0" fill="#e9a23b" opacity="1"/>
+<rect x="142.0" y="765.6" width="25.0" height="17.0" fill="#e9a23b" opacity="1"/>
+<rect x="174.0" y="765.6" width="25.0" height="17.0" fill="#e9a23b" opacity="1"/>
+<rect x="206.0" y="765.6" width="25.0" height="17.0" fill="#e9a23b" opacity="1"/>
+<rect x="238.0" y="765.6" width="25.0" height="17.0" fill="#e9a23b" opacity="1"/>
+<rect x="270.0" y="765.6" width="25.0" height="17.0" fill="#e9a23b" opacity="1"/>
+<rect x="302.0" y="765.6" width="25.0" height="17.0" fill="#e9a23b" opacity="1"/>
+<rect x="334.0" y="765.6" width="25.0" height="17.0" fill="#e9a23b" opacity="1"/>
+<rect x="366.0" y="765.6" width="25.0" height="17.0" fill="#e9a23b" opacity="0.3"/>
+<rect x="398.0" y="765.6" width="25.0" height="17.0" fill="#e9a23b" opacity="0.3"/>
+<rect x="430.0" y="765.6" width="25.0" height="17.0" fill="#e9a23b" opacity="0.3"/>
+<text x="30" y="308" font-size="28" fill="#1d2433" font-weight="bold" text-anchor="start">A 彩色線條</text>
+<text x="30" y="612" font-size="28" fill="#1d2433" font-weight="bold" text-anchor="start">B 地鐵卡</text>
+<text x="30" y="862" font-size="28" fill="#1d2433" font-weight="bold" text-anchor="start">C 倒數計時</text>
+<text x="30" y="352" font-size="26" fill="#d9773a" font-weight="bold" text-anchor="start">他選了 A</text>
+<text x="510" y="932" font-size="24" fill="#5b6170" text-anchor="end">依影片畫面重繪的示意</text>
+</svg>

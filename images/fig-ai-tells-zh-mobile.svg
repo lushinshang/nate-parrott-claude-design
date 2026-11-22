@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 960" width="540" height="960" role="img" font-family="PingFang TC, Noto Sans TC, Microsoft JhengHei, sans-serif">
+<title>四個破綻</title>
+<desc>本文示意：一張抽象卡片，用引線標出講者描述的 AI 預設風格四個特徵：襯線字體、米白色背景、橘色、卡片邊緣的邊條。卡片內用灰線代替內文，不是任何真實產品的畫面。</desc>
+<rect width="540" height="960" fill="#fbfaf7"/>
+<text x="30" y="64" font-size="34" fill="#1d2433" font-weight="bold" text-anchor="start">四個破綻</text>
+<rect x="30" y="96" width="480" height="470" rx="16" fill="#f1e6d2"/>
+<rect x="80" y="140" width="380" height="380" rx="10.0" fill="#fffdf8" stroke="#d8cfbf" stroke-width="2"/>
+<rect x="80" y="140" width="9.0" height="380" rx="3" fill="#d9773a"/>
+<rect x="116.0" y="174.0" width="39.6" height="6.3" fill="#1d2433"/><rect x="116.0" y="174.0" width="3.6" height="12.6" fill="#1d2433"/><rect x="152.0" y="174.0" width="3.6" height="12.6" fill="#1d2433"/><rect x="132.2" y="174.0" width="7.2" height="54.0" fill="#1d2433"/><rect x="125.9" y="223.5" width="19.8" height="4.5" fill="#1d2433"/>
+<rect x="168.0" y="194.0" width="159.6" height="12.0" rx="3" fill="#1d2433" opacity="0.85"/>
+<rect x="168.0" y="216.0" width="106.4" height="12.0" rx="3" fill="#1d2433" opacity="0.85"/>
+<rect x="116.0" y="266.0" width="240.2" height="8.0" rx="3" fill="#c9c2b4"/>
+<rect x="116.0" y="288.0" width="252.6" height="8.0" rx="3" fill="#c9c2b4"/>
+<rect x="116.0" y="310.0" width="215.6" height="8.0" rx="3" fill="#c9c2b4"/>
+<rect x="116.0" y="332.0" width="246.4" height="8.0" rx="3" fill="#c9c2b4"/>
+<rect x="116.0" y="354.0" width="169.4" height="8.0" rx="3" fill="#c9c2b4"/>
+<rect x="116.0" y="458.0" width="130.0" height="38.0" rx="19.0" fill="#d9773a"/>
+<rect x="40.0" y="610.0" width="29.3" height="4.7" fill="#1d2433"/><rect x="40.0" y="610.0" width="2.7" height="9.3" fill="#1d2433"/><rect x="66.7" y="610.0" width="2.7" height="9.3" fill="#1d2433"/><rect x="52.0" y="610.0" width="5.3" height="40.0" fill="#1d2433"/><rect x="47.3" y="646.7" width="14.7" height="3.3" fill="#1d2433"/>
+<text x="100" y="640" font-size="28" fill="#1d2433" font-weight="bold" text-anchor="start">襯線字體</text>
+<rect x="40" y="676" width="40" height="44" rx="5" fill="#fffdf8" stroke="#d8cfbf" stroke-width="2"/><rect x="40" y="676" width="7" height="44" rx="2" fill="#d9773a"/>
+<text x="100" y="710" font-size="28" fill="#1d2433" font-weight="bold" text-anchor="start">卡片邊緣的邊條</text>
+<rect x="40" y="752" width="40" height="32" rx="16" fill="#d9773a"/>
+<text x="100" y="780" font-size="28" fill="#1d2433" font-weight="bold" text-anchor="start">橘色</text>
+<rect x="40" y="816" width="40" height="44" rx="5" fill="#f1e6d2" stroke="#d8cfbf" stroke-width="2"/>
+<text x="100" y="850" font-size="28" fill="#1d2433" font-weight="bold" text-anchor="start">米白色背景</text>
+<text x="510" y="930" font-size="24" fill="#5b6170" text-anchor="end">本文示意</text>
+</svg>
